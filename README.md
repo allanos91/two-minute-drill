@@ -4,6 +4,6 @@
 
 ![db-schema]
 
-[db-schema]: ./images/image-1.png
+[db-schema]: ./images/image.png
 
 ## API Documentation
