@@ -1,7 +1,6 @@
 'use strict';
 
 const { Contest } = require('../models');
-const bcrypt = require("bcryptjs");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -10,6 +9,18 @@ module.exports = {
       {
         host_id: 1,
         description: "test",
+        closing_date: new Date('December 17, 1995 03:24:00'),
+        preview_image: "url"
+      },
+      {
+        host_id: 1,
+        description: "test2",
+        closing_date: new Date('December 17, 1995 03:24:00'),
+        preview_image: "url"
+      },
+      {
+        host_id: 2,
+        description: "test3",
         closing_date: new Date('December 17, 1995 03:24:00'),
         preview_image: "url"
       }

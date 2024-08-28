@@ -1,7 +1,6 @@
 'use strict';
 
 const { Prediction } = require('../models');
-const bcrypt = require("bcryptjs");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
