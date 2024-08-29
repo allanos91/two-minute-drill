@@ -3,7 +3,58 @@ const router = express.Router();
 const { requireAuth } = require('../../utils/auth')
 const {Contest, Prediction, Contest_prediction, Submission } = require('../../db/models')
 const { formatDate } = require('../../utils/formatters');
-const contest = require('../../db/models/contest');
+
+
+//deletes a contest a user is hosting as long as closing date hasn't been reached.
+router.delete('/:contestId', requireAuth, async (req, res, next) => {
+    const contestId = parseInt(req.params.contestId)
+    const userId = req.user.dataValues.id
+
+    //find the contest
+
+    const contest = await Contest.findOne({
+        where: {
+            id: contestId
+        }
+    })
+
+    //check if contest exists
+    if (!contest){
+        const err = new Error('Contest does not exist')
+        err.status = 404
+        next(err)
+        return
+    }
+
+    //check if user is hosting the contest
+    if (userId !== contest.host_id) {
+        const err = new Error('Forbidden')
+        err.status = 403
+        next(err)
+        return
+    }
+
+    //checks if closing date has been reached.
+    let currentDate = new Date()
+
+    if (currentDate > contest.closing_date) {
+        const err = new Error('Cannot delete a contest that has already been closed')
+        err.status = 401
+        next(err)
+        return
+    }
+
+    //deletes the contest
+    await Contest.destroy({
+        where: {
+            id: contestId
+        }
+    })
+
+    res.json({
+        message: "Your contest was successfully delete."
+    })
+})
 
 
 //updates a contest as long as no submission has been submitted.
