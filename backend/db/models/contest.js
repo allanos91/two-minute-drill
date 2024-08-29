@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       Contest.belongsTo(
         models.User,
         {
-          foreignKey: 'host_id'
+          foreignKey: 'host_id',
+          onDelete: "cascade"
         }
       )
       Contest.belongsToMany(
@@ -23,6 +24,13 @@ module.exports = (sequelize, DataTypes) => {
           through: models.Contest_prediction,
           foreignKey: "contest_id",
           otherKey: "prediction_id",
+          onDelete: "cascade"
+        }
+      )
+      Contest.hasMany(
+        models.Submission,
+        {
+          foreignKey: 'contest_id',
           onDelete: "cascade"
         }
       )

@@ -12,6 +12,13 @@ module.exports = (sequelize, DataTypes) => {
           onDelete: 'cascade'
         }
       )
+      User.hasMany(
+        models.Submission,
+        {
+          foreignKey: 'user_id',
+          onDelete: 'cascade'
+        }
+      )
     }
   };
 
