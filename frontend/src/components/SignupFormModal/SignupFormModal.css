@@ -1,0 +1,77 @@
+/* SignupFormModal.css */
+
+/* Style the container of the modal */
+.SignupFormModal {
+    width: 100%;
+    max-width: 500px; /* Slightly larger width for more fields */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1e2a38; /* Deep blue background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: 'Arial', sans-serif; /* Sporty, clean font */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+  }
+
+  /* Style the heading */
+  .SignupFormModal h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff; /* White for better readability */
+    font-weight: bold;
+    text-transform: uppercase; /* Uppercase text for impact */
+  }
+
+  /* Style the form */
+  .SignupFormModal form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Style the form labels */
+  .SignupFormModal label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #d0d0d0; /* Light gray for better readability */
+  }
+
+  /* Style the input fields */
+  .SignupFormModal input {
+    width: calc(100% - 24px); /* Subtract padding and borders */
+    padding: 12px;
+    margin: 5px 0 15px;
+    border: 2px solid #f9d342; /* Bright yellow border */
+    border-radius: 6px;
+    background-color: #2a3c52; /* Darker blue for input fields */
+    color: #ffffff; /* White text for readability */
+    font-size: 16px;
+    box-sizing: border-box; /* Include padding and border in the element's width and height */
+  }
+
+  /* Style the error messages */
+  .SignupFormModal p {
+    color: #ff4d4d; /* Vivid red for errors */
+    font-size: 14px;
+    margin: 0 0 15px;
+    font-weight: bold;
+  }
+
+  /* Style the submit button */
+  .SignupFormModal button {
+    padding: 12px;
+    background-color: #f9d342; /* Bright yellow background */
+    color: #1e2a38; /* Deep blue text for contrast */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase; /* Uppercase text for button */
+    box-sizing: border-box; /* Include padding and border in the element's width and height */
+  }
+
+  .SignupFormModal button:hover {
+    background-color: #e6c031; /* Slightly darker yellow for hover */
+  }

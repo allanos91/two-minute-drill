@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
+import './SignupFormModal.css'
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div className="SignupFormModal">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -108,7 +109,7 @@ function SignupFormModal() {
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

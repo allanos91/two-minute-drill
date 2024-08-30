@@ -1,0 +1,78 @@
+button {
+    background-color: #f9d342; /* Bright yellow background */
+    color: #1e2a38; /* Deep blue text */
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  button:hover {
+    background-color: #e6c031; /* Slightly darker yellow for hover */
+    color: #ffffff; /* White text on hover */
+  }
+
+  /* Style the dropdown menu */
+  .profile-dropdown {
+    background-color: #1e2a38; /* Deep blue background */
+    color: #ffffff; /* White text */
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    top: 100%; /* Position below the button */
+    left: 0;
+    width: 200px; /* Width of the dropdown */
+  }
+
+  /* Style each menu item */
+  ul li {
+    margin: 10px 0;
+  }
+
+  /* Style the menu item buttons */
+  ul li button {
+    background: transparent; /* Transparent background for buttons inside the menu */
+    color: #f9d342; /* Bright yellow text */
+    border: none;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%; /* Full width to match menu */
+    text-align: left; /* Align text to the left */
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  ul li button:hover {
+    background-color: #2a3c52; /* Darker blue background for hover */
+    color: #ffffff; /* White text on hover */
+  }
+
+
+.profile-icon {
+    width: 220px;
+}
+
+.circle-profile-button {
+    margin-left: 38%;
+    height: 50px;
+    width: 50px;
+}
+
+.user-info {
+    color: #f9d342;
+    border: none;
+    font-family: 'Arial', sans-serif;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.log-in-out {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 5px;
+}
