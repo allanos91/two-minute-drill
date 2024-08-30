@@ -18,11 +18,11 @@ module.exports = {
       host_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {
-          model:'Users',
-          key: 'id'
-        },
-        onDelete: 'cascade'
+        // references: {
+        //   model:'Users',
+        //   key: 'id'
+        // },
+        // onDelete: 'cascade'
       },
       description: {
         type: Sequelize.STRING,
