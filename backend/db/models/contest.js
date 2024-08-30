@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Contest.belongsTo(
-        models.User,
-        {
-          foreignKey: 'host_id',
-        }
-      )
+      // Contest.belongsTo(
+      //   models.User,
+      //   {
+      //     foreignKey: 'host_id',
+      //   }
+      // )
       Contest.belongsToMany(
         models.Prediction,
         {
