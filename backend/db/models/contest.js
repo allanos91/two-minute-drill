@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         models.User,
         {
           foreignKey: 'host_id',
-          onDelete: "cascade"
         }
       )
       Contest.belongsToMany(
