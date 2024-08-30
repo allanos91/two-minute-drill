@@ -16,13 +16,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       host_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-        // references: {
-        //   model:'Users',
-        //   key: 'id'
-        // },
-        // onDelete: 'cascade'
+        references: {
+          model:'Users',
+          key: 'id'
+        },
+        onDelete: 'cascade'
       },
       description: {
         type: Sequelize.STRING,
@@ -45,7 +44,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Contests');
