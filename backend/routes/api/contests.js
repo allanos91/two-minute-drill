@@ -240,7 +240,7 @@ router.get('/', async (req, res, next) => {
         contests[i].dataValues.closing_date = formatDate(contests[i].dataValues.closing_date)
     }
 
-    res.json(contests)
+    res.json({Contests: contests})
 })
 
 module.exports = router
