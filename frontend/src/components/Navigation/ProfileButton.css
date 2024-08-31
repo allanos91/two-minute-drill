@@ -7,6 +7,7 @@ button {
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+    font-family: 'Courier New', Courier, monospace
   }
 
   button:hover {
@@ -66,7 +67,7 @@ button {
 .user-info {
     color: #f9d342;
     border: none;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     margin: 0px;
     margin-top: 10px;
 }

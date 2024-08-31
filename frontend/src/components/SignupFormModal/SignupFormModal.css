@@ -10,7 +10,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: #fff;
-    font-family: 'Arial', sans-serif; /* Sporty, clean font */
+    font-family: 'Courier New', Courier, monospace;/* Sporty, clean font */
     box-sizing: border-box; /* Ensure padding and border are included in width */
   }
 
@@ -69,6 +69,7 @@
     font-size: 18px;
     font-weight: bold;
     text-transform: uppercase; /* Uppercase text for button */
+    font-family: 'Courier New', Courier, monospace;
     box-sizing: border-box; /* Include padding and border in the element's width and height */
   }
 
