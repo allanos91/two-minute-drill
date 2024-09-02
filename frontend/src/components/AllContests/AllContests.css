@@ -1,0 +1,61 @@
+.contest-display.odd{
+    background-color: #2a3c52;
+}
+
+
+.contest-display.even{
+    background-color: #1e2a38;
+}
+
+.contest-display {
+    border: solid;
+    display: flex;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+    border-color: gray;
+    justify-content: space-between;
+}
+
+p {
+    margin: 0;
+    padding: 10px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+
+.closing-date {
+    display: flex;
+    width: 400px;
+    height: 300px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cd-color {
+    color:rgb(36, 255, 36)
+}
+
+.description {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    width: 600px;
+    height: 300px;
+}
+
+.price {
+    color:rgb(36, 255, 36);
+    font-size: 30px;
+}
+
+.price-div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 300px;
+}
+
+.description {
+    
+}
