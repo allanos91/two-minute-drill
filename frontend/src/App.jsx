@@ -6,6 +6,7 @@ import * as sessionActions from './store/session';
 import LandingPage from './components/LandingPage';
 import CreateContest from './components/CreateContest';
 import AllContests from './components/AllContests';
+import ContestDetails from './components/ContestDetails';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/contests',
         element: <AllContests/>
+      },
+      {
+        path: '/contests/:contestId',
+        element: <ContestDetails/>
       }
     ]
   }

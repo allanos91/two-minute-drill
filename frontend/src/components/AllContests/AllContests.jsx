@@ -35,12 +35,15 @@ const AllContests = () => {
     }
 
     if (isLoaded) {
+        const onCLick = (id) => {
+            navigate(`/contests/${id}`)
+        }
         return (
             contests.map(contest => {
                 let dateTime = contest.closing_date.split(", ")
                 console.log(dateTime)
                 return (
-                <div className={assignClassName(count)} key={contest.id}>
+                <div className={assignClassName(count)} key={contest.id} onClick={() => onCLick(contest.id)}>
                     <div className='closing-date'>
                     <p>Last day to submit entry: </p>
                     <p className='cd-color'>{dateTime[0]} at {dateTime[1]}</p>
