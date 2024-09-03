@@ -25,9 +25,13 @@ const ContestDetails = () => {
 
     if (isLoaded && details.predictions) {
         return (
-            <div>
-                <p>{details.description}</p>
-                <p>{details.closing_date}</p>
+            <>
+            <div className="contest-block">
+                <div className="contest-header">
+                <p className="contest-header-elements">{details.description}</p>
+                <p className="contest-header-elements">{details.closing_date}</p>
+                </div>
+
                 {details.predictions.map(prediction => {
                     return (
                         <FormatPrediction type={prediction.type} content={prediction.content}/>
@@ -35,6 +39,10 @@ const ContestDetails = () => {
 
                 })}
             </div>
+            <div className="button-container">
+            <button className="enter-submission">Enter a submission</button>
+            </div>
+            </>
         )
     } else {
         return (
