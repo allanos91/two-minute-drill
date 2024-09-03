@@ -1,11 +1,47 @@
-
+import { useSelector, useDispatch } from "react-redux";
+import { getContestDetails } from "../../store/contests";
+import { useEffect, useState} from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import FormatPrediction  from "../../../utils/utils";
+import './ContestDetails.css'
 
 
 const ContestDetails = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [isLoaded, setIsLoaded] = useState(false)
+    const id = useParams().contestId
 
-    return (
-        <p>Test</p>
-    )
+    useEffect(() => {
+        dispatch(getContestDetails(id))
+        if (!isLoaded) {
+            setIsLoaded(true)
+        }
+    }, [dispatch, isLoaded])
+
+    const details = useSelector((state) => {
+        return state.contests.details
+    })
+
+    if (isLoaded && details.predictions) {
+        return (
+            <div>
+                <p>{details.description}</p>
+                <p>{details.closing_date}</p>
+                {details.predictions.map(prediction => {
+                    return (
+                        <FormatPrediction type={prediction.type} content={prediction.content}/>
+                    )
+
+                })}
+            </div>
+        )
+    } else {
+        return (
+            <p>Test</p>
+        )
+    }
+
 }
 
 

@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_CONTESTS = "contests/LOAD_CONTESTS"
+const LOAD_CONTEST_DETAILS = "contests/LOAD_CONTEST_DETAILS"
 
 const load = (data, type, id) => ({
     type,
@@ -8,12 +9,22 @@ const load = (data, type, id) => ({
     id
 })
 
-const initialState = {}
+const initialState = {
+    all: {},
+    details: {}
+}
 
 export const getContests = () => async dispatch => {
     const response = await fetch('/api/contests')
     const data = await response.json();
     dispatch(load(data, LOAD_CONTESTS))
+    return data
+}
+
+export const getContestDetails = (id) => async dispatch => {
+    const response = await fetch(`/api/contests/${id}`)
+    const data = await response.json()
+    dispatch(load(data, LOAD_CONTEST_DETAILS, id))
     return data
 }
 
@@ -26,7 +37,14 @@ const contestReducer = (state = initialState, action) => {
             })
             return {
                 ...state,
-                ...newContests
+                all: {...newContests}
+            }
+        }
+        case LOAD_CONTEST_DETAILS: {
+            const newContestDetails = {...action.data.contest}
+            return {
+                ...state,
+                details: newContestDetails
             }
         }
         default:
