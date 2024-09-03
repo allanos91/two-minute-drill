@@ -39,7 +39,8 @@ module.exports = (sequelize, DataTypes) => {
     host_id: DataTypes.INTEGER,
     description: DataTypes.STRING,
     closing_date: DataTypes.DATE,
-    preview_image: DataTypes.STRING
+    preview_image: DataTypes.STRING,
+    price: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Contest',
