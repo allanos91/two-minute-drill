@@ -45,6 +45,8 @@ const FormatPrediction = (props) => {
         )
     } else if (props.type === "over/under") {
         let contentArr = props.content.split(' ')
+        console.log(contentArr)
+        console.log(contentArr[2])
         return (
             <div className="predictions-box">
             <p className="predictions">{contentArr[2].toUpperCase()} {contentArr[3].toUpperCase()}</p>
