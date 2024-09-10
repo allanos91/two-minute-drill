@@ -41,7 +41,6 @@ const AllContests = () => {
         return (
             contests.map(contest => {
                 let dateTime = contest.closing_date.split(", ")
-                console.log(dateTime)
                 return (
                 <div className={assignClassName(count)} key={contest.id} onClick={() => onCLick(contest.id)}>
                     <div className='closing-date'>

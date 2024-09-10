@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
-import { getPredictions } from "../../store/predictions"
+import { getPredictions, addPrediction } from "../../store/predictions"
 import FormatPrediction from "../../../utils/utils"
+import { addContest } from "../../store/contests"
+import "./CreateContest.css"
 
 
 const CreateContest = () => {
@@ -18,7 +20,13 @@ const CreateContest = () => {
     const [weekArr, setWeekArr] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])
     const [disabledWeek, setDisabledWeek] = useState(false)
     const [disabledOU, setDisabledOU] = useState(false)
-    const [predictionId, setPredictionId] = useState("")
+    const [date, setDate] = useState('')
+    const [time, setTime] = useState('')
+    const [error, setError] = useState("")
+    const [description, setDescription] = useState("")
+    const [price, setPrice] = useState(0)
+    const [toggleTeamPoints, setToggleTeamPoints] = useState(false)
+    const [toggleWinLose, setToggleWinLose] = useState(false)
 
     useEffect(() => {
         dispatch(getPredictions())
@@ -30,6 +38,10 @@ const CreateContest = () => {
         if (content && type) {
             handlePredictionArr()
             setWeek('')
+        }
+
+        if (type === "win or lose") {
+
         }
     }, [dispatch, isLoaded, type, content, week, ouPoints])
 
@@ -60,7 +72,6 @@ const CreateContest = () => {
     const handleSetTeam = (e) => {
         if (type === "win or lose") {
             let team = e.target.value
-            console.log(team.split(' vs ').join(' '))
             setCTeam(team.split(' vs ').join(' '))
         }
 
@@ -71,14 +82,20 @@ const CreateContest = () => {
         if (type === "season record") {
             setCTeam(e.target.value)
         }
+
+        if (type === "over/under") {
+            setCTeam(e.target.value)
+        }
     }
 
 
 
-    const handlePredictionArr = () => {
+    const handlePredictionArr = async () => {
         setPredictionArr([...predictionArr, {type: type, content: content}])
         setContent('')
         setType('')
+        setCTeam('')
+        setWeek('')
     }
 
 
@@ -100,10 +117,20 @@ const CreateContest = () => {
         }
     }
 
+    // const handleTeamPoints = () => {
+    //     if (type === "team points") {
+    //         if (toggleteampoints !== true) {
+
+    //         }
+    //     }
+    // }
+
     const handleDisabledOU = () => {
         if (type === "over/under") {
             if (disabledOU !== false) {
                 setDisabledOU(false)
+                setWeek('')
+                setCTeam('')
             }
         } else {
             if (ouPoints !== '') {
@@ -111,14 +138,21 @@ const CreateContest = () => {
             }
             if (disabledOU !== true) {
                 setDisabledOU(true)
+                setWeek('')
+                setCTeam('')
             }
         }
     }
 
-    const handleSetContent = () => {
+    const handleSetContent = async () => {
         if (type === "win or lose") {
+            if (!cTeam || !week) {
+                setError("You must select an option for each step before adding a question.")
+                return
+            }
+
             setContent(cTeam + " " + week)
-            console.log(content)
+            setError('')
             return
         }
         if (type === "season record") {
@@ -127,21 +161,62 @@ const CreateContest = () => {
         }
 
         if (type === "team points") {
+            if (!cTeam || !week) {
+                setError("You must select an option for each step before adding a question.")
+                return
+            }
+            setError("")
             setContent(cTeam + " " + week)
         }
 
         if (type === "over/under") {
+            if (!cTeam || !week || !ouPoints) {
+                setError("You must select an option for each step before adding a question.")
+                return
+            }
+            setError('')
             setContent(cTeam + " " + ouPoints + " " + week)
+            dispatch(addPrediction({type: type, content: cTeam + " " + ouPoints + " " + week}))
         }
 
     }
 
+    const handleErrorClass = () => {
+        if (error) {
+            return "error"
+        } else {
+            return "hidden error"
+        }
+    }
+
+    const handleCreateContest = async () => {
+        let arr = []
+
+        predictionArr.forEach(el => {
+            let prediction = questions.filter(q => {
+                return el.content === q.content
+            })
+
+            if (prediction[0]) {
+                arr.push(prediction[0].id)
+            }
+        })
+
+        const payload = {
+            description: description,
+            predictions: arr,
+            closing_date: date + " " + time + ":00",
+            price: price
+        }
+
+        await dispatch(addContest(payload))
+        navigate('/contests')
+        return
+    }
 
 
 
     if (isLoaded) {
-        console.log(predictionArr)
-        console.log(ouPoints, "flag")
         return (
             <>
             <p>Step 1: choose the type of prediction down below</p>
@@ -149,7 +224,8 @@ const CreateContest = () => {
             <p>Step 3: Choose the team or teams</p>
             <p>Step 4: If you chose over/under, set the line</p>
             <p>Step 5: repeat steps 1-4 for more questions!</p>
-            <p>Step 6: when you are done adding questions, hit the Create Contest button</p>
+            <p>Step 6: When you are done adding questions, set an entry fee and closing date of the contest.</p>
+            <p>Step 7: Click Create Contest!</p>
             <label> 1. Choose a question type: </label>
             <select onChange={(e) => setType(e.target.value)} value={type}>
                 <option>Types</option>
@@ -195,9 +271,32 @@ const CreateContest = () => {
             </select>
             <input type="integer" disabled={disabledOU} onChange={(e) => setOUPoints(e.target.value)} value={ouPoints}/>
             <button onClick={handleSetContent}>Add question</button>
+            <div>
+                <label>Description: </label>
+                <textarea value={description} onChange={(e) => setDescription(e.target.value)}/>
+            </div>
+            <div>
+            <label>Entry fee:</label>
+            <select onChange={(e) => setPrice(e.target.value)} value={price}>
+                <option>0</option>
+                <option>5</option>
+                <option>10</option>
+                <option>25</option>
+                <option>100</option>
+            </select>
+            </div>
+            <div>
+            <label>Closing date: </label>
+            <input type="date" onChange={(e) => setDate(e.target.value)} value={date}/>
+            <input type="time" onChange={(e) => setTime(e.target.value)} value={time}/>
+            </div>
+            <p className={handleErrorClass()}>{error}</p>
             {predictionArr.map(prediction => {
                 return <FormatPrediction type={prediction.type} content={prediction.content}/>
             })}
+            <div>
+            <button onClick={handleCreateContest}>Create Contest</button>
+            </div>
             </>
         )
     }

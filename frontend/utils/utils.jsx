@@ -1,10 +1,14 @@
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import './utils.css'
+import { addPrediction } from "../src/store/predictions"
+import { useDispatch } from "react-redux"
 
 
 const FormatPrediction = (props) => {
     const [select1, setSelect1] = useState("win")
     const [select2, setSelect2] = useState("lose")
+    const [isLoaded, setIsLoaded] = useState(false)
+    const dispatch = useDispatch()
 
     if (props.type === "win or lose") {
         let contentArr = props.content.split(" ")
@@ -45,8 +49,6 @@ const FormatPrediction = (props) => {
         )
     } else if (props.type === "over/under") {
         let contentArr = props.content.split(' ')
-        console.log(contentArr)
-        console.log(contentArr[2])
         return (
             <div className="predictions-box">
             <p className="predictions">{contentArr[2].toUpperCase()} {contentArr[3].toUpperCase()}</p>
