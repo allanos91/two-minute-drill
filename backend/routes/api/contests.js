@@ -132,7 +132,8 @@ router.post('/', requireAuth, async (req, res, next) => {
         host_id : req.user.dataValues.id,
         description: req.body.description,
         closing_date: req.body.closing_date,
-        preview_image: req.body.preview_image
+        preview_image: req.body.preview_image,
+        price: req.body.price
     })
 
     //formats the date
