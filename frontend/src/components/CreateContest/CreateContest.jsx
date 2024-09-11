@@ -245,9 +245,9 @@ const CreateContest = () => {
         }
 
 
-        // await dispatch(addContest(payload))
-        // navigate('/contests')
-        // return
+        await dispatch(addContest(payload))
+        navigate('/contests')
+        return
     }
 
 
@@ -283,7 +283,7 @@ const CreateContest = () => {
             </div>
             <p>Step 3: Choose the team or teams</p>
             <div className="form-group">
-            <label>Select team or teams</label>
+            <label>3. Select team or teams</label>
             <select onChange={handleSetTeam} value={cTeam}>
                 <option>N/A</option>
                 {filteredData.map(question => {
@@ -311,13 +311,16 @@ const CreateContest = () => {
             </div>
             <p>Step 4: If you chose over/under, set the line. Then hit 'Add Question'</p>
             <div className="form-group">
-            <label>Over/Under Line</label>
-            <input type="integer" disabled={disabledOU} onChange={(e) => setOUPoints(e.target.value)} value={ouPoints}/>
-            <button onClick={handleSetContent}>Add question</button>
+            <label>4. Over/Under Line</label>
+            <input type="integer" disabled={disabledOU} onChange={(e) => setOUPoints(e.target.value)} value={ouPoints} className="over-under-points"/>
             </div>
             <div className={handleErrorClass()}>{error}</div>
-            <p>Step 5: Repeat steps 1-4 for more questions!</p>
-            <p>Step 6: When you are done adding questions, set an entry fee and closing date of the contest.</p>
+            <p>Step 5: Click Add Question</p>
+            <div className="form-group">
+            <button onClick={handleSetContent}>Add question</button>
+            </div>
+            <p>Step 6: Repeat steps 1-5 for more questions!</p>
+            <p>Step 7: When you are done adding questions, set an entry fee and closing date of the contest.</p>
             <div className="form-group">
                 <label>Description: </label>
                 <textarea id= "textarea"value={description} onChange={(e) => setDescription(e.target.value)}/>
@@ -339,10 +342,9 @@ const CreateContest = () => {
                 <input type="time" onChange={(e) => setTime(e.target.value)} value={time}/>
                 <div className={valErrors()}>{errors.date}</div>
             </div>
-            <p>Step 7: Click Create Contest!</p>
-                <div>
+            <p>Step 7: Create Contest!</p>
                     <button onClick={handleCreateContest}>Create Contest</button>
-                </div>
+
             </div>
             </section>
 
