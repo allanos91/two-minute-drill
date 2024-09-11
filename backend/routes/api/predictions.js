@@ -4,6 +4,9 @@ const { requireAuth } = require('../../utils/auth')
 const {Contest, Prediction} = require('../../db/models')
 
 
+
+
+
 //creates new prediction
 router.post('/', requireAuth, async(req, res, next) => {
     const prediction = await Prediction.findOne({
