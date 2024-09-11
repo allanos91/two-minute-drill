@@ -17,6 +17,9 @@ const LandingPage = () => {
         <div className='landing-page'>
             <Link className='landing-page link' to={'/contests'}>See available contests</Link>
         </div>
+        <div>
+            <Link className='landing-page link' to={'/contests/hosted-contests'}>View your contests</Link>
+        </div>
         </section>
     )
 }
