@@ -22,6 +22,14 @@ const AllContests = () => {
         return Object.values(state.contests.all)
     })
 
+    const filteredContests = contests.filter(contest => {
+        return new Date(contest.closing_date) > new Date()
+    })
+
+    const sortedContests = filteredContests.sort((a, b) => {
+        return new Date(a.closing_date) > new Date(b.closing_date) ? 1 : -1
+    })
+
     let count = 0
 
     const assignClassName = () => {
@@ -39,7 +47,7 @@ const AllContests = () => {
             navigate(`/contests/${id}`)
         }
         return (
-            contests.map(contest => {
+            sortedContests.map(contest => {
                 let dateTime = contest.closing_date.split(", ")
                 return (
                 <div className={assignClassName(count)} key={contest.id} onClick={() => onCLick(contest.id)}>
