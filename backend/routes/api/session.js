@@ -31,6 +31,7 @@ const validateLogin = [
           id: user.id,
           email: user.email,
           username: user.username,
+          balance: user.balance
         };
         return res.json({
           user: safeUser
@@ -65,10 +66,13 @@ router.post(
         return next(err);
       }
 
+      console.log(user)
+
       const safeUser = {
         id: user.id,
         email: user.email,
         username: user.username,
+        balance: user.balance
       };
 
       await setTokenCookie(res, safeUser);

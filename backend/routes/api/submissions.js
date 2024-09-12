@@ -1,13 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth');
-const {Submission} = require('../../db/models')
+const {Submission, Contest, User} = require('../../db/models')
 
 
 
 //creates a submission for a contest
 router.post('/:contestId', requireAuth, async(req, res, next) => {
     const contestId = parseInt(req.params.contestId)
+
+
+    //finds the contest
+    const contest = await Contest.findOne({
+        where: {
+            id: contestId
+        }
+    })
+
+    //compares price of entry to account
+
+    let price = contest.dataValues.price
+    let balance = req.user.dataValues.balance
+    if (price > balance) {
+        res.json({message: "insufficient funds"})
+        return
+    } else {
+        const user = await User.findOne({
+            where: {
+                id: req.user.dataValues.id
+            }
+        })
+        await user.update({
+            balance: balance - price
+        })
+    }
     const userId = req.user.dataValues.id
     const submission = await Submission.create({
         user_id: userId,
