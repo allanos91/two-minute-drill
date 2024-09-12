@@ -10,6 +10,7 @@ const ContestDetails = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [isLoaded, setIsLoaded] = useState(false)
+    const [isHidden, setIsHidden] = useState(true)
     const id = useParams().contestId
 
     useEffect(() => {
@@ -22,6 +23,23 @@ const ContestDetails = () => {
     const details = useSelector((state) => {
         return state.contests.details
     })
+    const user = useSelector(state => state.session.user)
+
+    const handleEnterSubmission = () => {
+        if (details.price > user.balance) {
+            setIsHidden(false)
+            return
+        }
+        navigate(`/submissions/${id}`)
+    }
+
+    const errorClassName = () => {
+        if (isHidden) {
+            return "error hidden"
+        } else {
+            return "error"
+        }
+    }
 
     if (isLoaded && details.predictions) {
         return (
@@ -39,9 +57,11 @@ const ContestDetails = () => {
 
                 })}
             </div>
+            <p className={errorClassName()}>Insufficient funds</p>
             <div className="button-container">
-            <button className="enter-submission">Enter a submission</button>
+            <button className="enter-submission" onClick={handleEnterSubmission}>Enter a submission</button>
             </div>
+
             </>
         )
     } else {

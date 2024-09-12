@@ -8,6 +8,7 @@ import CreateContest from './components/CreateContest';
 import AllContests from './components/AllContests';
 import ContestDetails from './components/ContestDetails';
 import HostedContests from './components/HostedContests';
+import SubmitPrediction from './components/SubmitPrediction/SubmitPrediction';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: '/contests/hosted-contests',
         element: <HostedContests/>
+      },
+      {
+        path: '/submissions/:contestId',
+        element: <SubmitPrediction/>
       }
     ]
   }

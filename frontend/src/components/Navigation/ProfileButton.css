@@ -77,3 +77,8 @@ button {
     margin: 0px;
     margin-top: 5px;
 }
+
+.balance {
+  font-family: 'Courier New', Courier, monospace;
+  color: yellowgreen;
+}

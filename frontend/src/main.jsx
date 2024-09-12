@@ -7,6 +7,7 @@ import configureStore from './store/store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
 import { Modal, ModalProvider } from './context/Modal';
+import { SubmissionContestArrayProvider } from './context/SubmissionContext';
 
 const store = configureStore();
 
@@ -31,8 +32,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ModalProvider>
       <Provider store={store}>
+        <SubmissionContestArrayProvider>
         <App />
         <Modal />
+        </SubmissionContestArrayProvider>
       </Provider>
     </ModalProvider>
   </React.StrictMode>

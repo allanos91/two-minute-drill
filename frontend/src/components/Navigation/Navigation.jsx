@@ -13,9 +13,11 @@ function Navigation({ isLoaded }) {
         <NavLink to="/"><img className='logo' src={logo} alt='two minute logo'/></NavLink>
       </li>
       {isLoaded && (
+        <>
         <li className='profile-icon'>
           <ProfileButton user={sessionUser} />
         </li>
+        </>
       )}
     </ul>
   );

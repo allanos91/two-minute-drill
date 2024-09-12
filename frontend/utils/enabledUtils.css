@@ -1,0 +1,33 @@
+.predictions-enabled {
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.predictions-box-enabled {
+    border: 1px solid #ddd;
+    padding-top: 15px;
+    border-radius: 5px;
+    background-color: #2a3c52;
+}
+
+.select-input-enabled {
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.input-field-enabled {
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    width: 80px; /* Adjust width as needed */
+    cursor: pointer;
+}
