@@ -18,7 +18,7 @@ const HostedContests = () => {
         if (!isLoaded) {
             setIsLoaded(true)
         }
-    }, [dispatch, isLoaded])
+    }, [dispatch, isLoaded, activeTab])
 
     let count = 0
 

@@ -2,11 +2,13 @@ import {useSelector, useDispatch} from 'react-redux'
 import { useState, useEffect } from 'react'
 import { getMySubmissions } from '../../store/submissions'
 import { getPredictionContests } from '../../store/contests'
+import {useNavigate} from "react-router-dom"
 
 
 
 const MyContests = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {

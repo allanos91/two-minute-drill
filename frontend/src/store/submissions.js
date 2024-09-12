@@ -16,3 +16,15 @@ const initialState = {
 export const getMySubmissions = () => async dispatch => {
     const response = await fetch('/api/submissions')
 }
+
+
+const submissionReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case LOAD_SUBMISSIONS: {
+            const submissions = {}
+            action.data.forEach
+        }
+        default:
+            return state;
+    }
+}
