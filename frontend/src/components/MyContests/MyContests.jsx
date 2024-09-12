@@ -1,27 +1,28 @@
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getHostedContests } from "../../store/contests";
-import MyContests  from "../MyContests"
-import './HostedContests.css'
+import {useSelector, useDispatch} from 'react-redux'
+import { useState, useEffect } from 'react'
+import { getMySubmissions } from '../../store/submissions'
+import { getPredictionContests } from '../../store/contests'
 
 
 
-const HostedContests = () => {
+const MyContests = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const [isLoaded, setIsLoaded] = useState(false)
-    const [activeTab, setActiveTab] = useState('myContests');
 
     useEffect(() => {
-        dispatch(getHostedContests())
+        dispatch(getMySubmissions())
+        dispatch(getPredictionContests())
+
         if (!isLoaded) {
             setIsLoaded(true)
         }
     }, [dispatch, isLoaded])
 
-    let count = 0
+    const contests = useSelector((state) => {
+        return Object.values(state.contests.userSubmissions)
+    })
 
+    let count = 0
     const assignClassName = () => {
         if (count % 2 === 0) {
             count += 1
@@ -31,38 +32,13 @@ const HostedContests = () => {
             return "contest-display odd"
         }
     }
-    const handleTabChange = (tab) => {
-        setActiveTab(tab);
-      };
-
-    const contests = useSelector((state) => {
-        return Object.values(state.contests.hosted)
-    })
 
     if (isLoaded) {
         const onCLick = (id) => {
             navigate(`/contests/${id}`)
         }
         return (
-            <div>
-                <nav className="navbar">
-        <button
-          className={`nav-button ${activeTab === 'myContests' ? 'active' : ''}`}
-          onClick={() => handleTabChange('myContests')}
-        >
-          My Contests
-        </button>
-        <button
-          className={`nav-button ${activeTab === 'hostedContests' ? 'active' : ''}`}
-          onClick={() => handleTabChange('hostedContests')}
-        >
-          Hosted Contests
-        </button>
-      </nav>
-
-      <main>
-        {activeTab === 'hostedContests' && <section className="hosted-contests">
-            {contests.map(contest => {
+            contests.map(contest => {
                 let dateTime = contest.closing_date.split(", ")
                 return (
                 <div className={assignClassName(count)} key={contest.id} onClick={() => onCLick(contest.id)}>
@@ -81,20 +57,13 @@ const HostedContests = () => {
                     <p className="image contest-preview-info">preview image: {contest.preview_image}</p>
                 </div>
                 )
-            })}
-            </section>}
-        {activeTab === 'myContests' && <section className="my-contests">
-            <MyContests/>
-            </section>}
-      </main>
-            </div>
 
+            })
         )
-    }
-
-    return (
-        <h1>TEST</h1>
+    } else return (
+        <h1>Test</h1>
     )
 }
 
-export default HostedContests
+
+export default MyContests

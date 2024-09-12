@@ -4,6 +4,7 @@ const LOAD_CONTESTS = "contests/LOAD_CONTESTS"
 const LOAD_CONTEST_DETAILS = "contests/LOAD_CONTEST_DETAILS"
 const CREATE_CONTEST = "contests/CREATE_CONTEST"
 const LOAD_HOSTED_CONTESTS = "contests/LOAD_HOSTED_CONTESTS"
+const LOAD_PREDICTIONS_CONTESTS = "contests/LOAD_PREDICTIONS_CONTESTS"
 
 const load = (data, type, id) => ({
     type,
@@ -19,7 +20,8 @@ const add = (data, type) => ({
 const initialState = {
     all: {},
     details: {},
-    hosted: {}
+    hosted: {},
+    userSubmissions: {}
 }
 
 export const getContests = () => async dispatch => {
@@ -30,9 +32,8 @@ export const getContests = () => async dispatch => {
 }
 
 export const getHostedContests = () => async dispatch => {
-    const response = await csrfFetch('/api/contests/hosted')
+    const response = await csrfFetch('/api/contests/current')
     const data = await response.json();
-    console.log(data)
     dispatch(load(data, LOAD_HOSTED_CONTESTS))
     return data
 }
@@ -56,6 +57,13 @@ export const addContest = (payload) => async dispatch => {
     const data = await response.json();
 
     dispatch(add(data, CREATE_CONTEST))
+    return data
+}
+
+export const getPredictionContests = () => async dispatch => {
+    const response = await csrfFetch('/api/contests/user/submissions')
+    const data = await response.json()
+    dispatch(load(data,LOAD_PREDICTIONS_CONTESTS))
     return data
 }
 
@@ -94,6 +102,16 @@ const contestReducer = (state = initialState, action) => {
             return {
                 ...state,
                 hosted: {...newContests}
+            }
+        }
+        case LOAD_PREDICTIONS_CONTESTS: {
+            const newContests = {}
+            action.data.forEach(contest => {
+                newContests[contest.id] = contest
+            })
+            return {
+                ...state,
+                userSubmissions: {...newContests}
             }
         }
         default:
