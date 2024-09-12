@@ -34,7 +34,7 @@ router.get('/:contestId', async (req, res, next) => {
 
 
 
-//gets all submissions that belong to the user
+//gets all submissions that belong to the current user
 router.get('/', requireAuth, async (req, res, next) => {
     const userId = req.user.dataValues.id
     const submissions = await Submission.findAll({
