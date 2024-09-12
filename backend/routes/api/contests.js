@@ -5,6 +5,34 @@ const {Contest, Prediction, Contest_prediction, Submission } = require('../../db
 const { formatDate } = require('../../utils/formatters');
 
 
+//gets all contests that a user has a submission to
+router.get('/user/submissions', requireAuth, async (req, res, next) => {
+    const userId = req.user.dataValues.id
+    const submissions = await Submission.findAll({
+        where: {
+            user_id: userId
+        }
+    })
+
+    let contestidArr = submissions.map(sub => {
+        return sub.dataValues.contest_id
+    })
+
+    let arr = []
+
+    for (let i = 0; i <contestidArr.length; i++) {
+        const contest = await Contest.findOne({
+            where: {
+                id: contestidArr[i]
+            }
+        })
+        contest.dataValues.closing_date = formatDate(contest.dataValues.closing_date)
+        arr.push(contest.dataValues)
+    }
+
+    res.json(arr)
+})
+
 //deletes a contest a user is hosting as long as closing date hasn't been reached.
 router.delete('/:contestId', requireAuth, async (req, res, next) => {
     const contestId = parseInt(req.params.contestId)
@@ -181,7 +209,7 @@ router.get('/current', async (req, res, next) => {
         contests[i].dataValues.closing_date = formatDate(contests[i].dataValues.closing_date)
     }
 
-    res.json(contests)
+    res.json({Contests: contests})
 })
 
 //gets details of a contest

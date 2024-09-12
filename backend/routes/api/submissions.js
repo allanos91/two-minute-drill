@@ -34,6 +34,18 @@ router.get('/:contestId', async (req, res, next) => {
 
 
 
+//gets all submissions that belong to the user
+router.get('/', requireAuth, async (req, res, next) => {
+    const userId = req.user.dataValues.id
+    const submissions = await Submission.findAll({
+        where: {
+            user_id: userId
+        }
+    })
+    res.json(submissions)
+})
+
+
 
 
 module.exports = router
