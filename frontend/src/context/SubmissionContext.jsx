@@ -3,7 +3,7 @@ import { createContext, useState, useContext} from 'react'
 const SubmissionContestArray = createContext();
 
 export function SubmissionContestArrayProvider({children}) {
-    const [arr, setArr] = useState([])
+    const [arr, setArr] = useState({})
 
     const contextValue = {
         arr,

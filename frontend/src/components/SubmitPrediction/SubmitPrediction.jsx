@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState} from "react"
 import {useNavigate, useParams} from "react-router-dom"
 import { getContestDetails } from "../../store/contests"
+import { useSubmissionContestArray } from "../../context/SubmissionContext"
 import EnableFormatPrediction from "../../../utils/enabledUtils"
 
 
@@ -12,6 +13,7 @@ const SubmitPrediction = () => {
     const {contestId} = useParams()
     const [isLoaded, setIsLoaded] = useState(false)
     const [values, setValues] = useState("")
+    const {arr, setArr} = useSubmissionContestArray()
 
     useEffect(() => {
         dispatch(getContestDetails(contestId))
@@ -24,15 +26,28 @@ const SubmitPrediction = () => {
         return state.contests.details
     })
 
+
+
     const handleSubmit = async(e) => {
         e.preventDefault()
-        console.log("FLAG")
+        let length = details.predictions.length
+
+        let contentArr = []
+
+        for (let i = 1; i <= length; i++) {
+            console.log(arr[i])
+        }
+
+
+        const payload = {
+            arr
+        }
         return
     }
 
-    const handleValues = (e) => {
-        console.log(e.target.value)
-    }
+
+
+    let count = 0
 
     if (isLoaded && details.predictions) {
         return (
@@ -43,13 +58,12 @@ const SubmitPrediction = () => {
                 </div>
                 <form className="submission-form" onSubmit={handleSubmit}>
                 {details.predictions.map(prediction => {
+                    count += 1
                     return (
-                        <EnableFormatPrediction type={prediction.type} content={prediction.content} onChange={handleValues}/>
+                        <EnableFormatPrediction type={prediction.type} content={prediction.content} count={count}/>
                     )
                 })}
-                <div>
                 <button className="submit-button">Submit</button>
-                </div>
                 </form>
             </div>
 
