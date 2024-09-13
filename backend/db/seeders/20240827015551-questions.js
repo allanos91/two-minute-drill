@@ -138,10 +138,93 @@ module.exports = {
         type: "season record",
         content: "Colts"
       },
-
       {
         type: "team points",
         content: "Ravens week 1"
+      },
+      {
+        type: "team points",
+        content: "Bills week 1"
+      },
+      {
+        type: "team points",
+        content: "Texans week 1"
+      },
+      {
+        type: "team points",
+        content: "Jets week 2"
+      },
+      {
+        type: "team points",
+        content: "49ers week 2"
+      },
+      {
+        type: "team points",
+        content: "Panthers week 2"
+      },
+      {
+        type: "team points",
+        content: "Titans week 2"
+      },
+      {
+        type: "team points",
+        content: "Titans week 3"
+      },
+      {
+        type: "team points",
+        content: "Chargers week 3"
+      },
+      {
+        type: "team points",
+        content: "Cardinals week 3"
+      },
+      {
+        type: "team points",
+        content: "Dolphins week 3"
+      },
+      {
+        type: "team points",
+        content: "Dolphins week 4"
+      },
+      {
+        type: "team points",
+        content: "Jets week 4"
+      },
+      {
+        type: "team points",
+        content: "Chargers week 4"
+      },
+      {
+        type: "team points",
+        content: "Saints week 4"
+      },
+      {
+        type: "team points",
+        content: "Chiefs week 4"
+      },
+      {
+        type: "team points",
+        content: "Bengals week 4"
+      },
+      {
+        type: "team points",
+        content: "Bengals week 5"
+      },
+      {
+        type: "team points",
+        content: "Titans week 5"
+      },
+      {
+        type: "team points",
+        content: "Bears week 5"
+      },
+      {
+        type: "team points",
+        content: "Jaguars week 5"
+      },
+      {
+        type: "team points",
+        content: "Chiefs week 5"
       },
       {
         type: "over/under",

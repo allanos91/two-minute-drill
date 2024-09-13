@@ -20,7 +20,6 @@ router.post('/', requireAuth, async(req, res, next) => {
             type: req.body.type,
             content:req.body.content
         })
-        console.log("FLAG FLAG FLAG")
         res.json(newPrediction)
         return
     } else {

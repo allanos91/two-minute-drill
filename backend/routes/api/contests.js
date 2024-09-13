@@ -262,11 +262,28 @@ router.get('/', async (req, res, next) => {
     const contests = await Contest.findAll()
 
 
+
+
     //formats the date
     for (let i = 0; i < contests.length; i ++) {
         contests[i].dataValues.createdAt = formatDate(contests[i].dataValues.createdAt)
         contests[i].dataValues.updatedAt = formatDate(contests[i].dataValues.updatedAt)
         contests[i].dataValues.closing_date = formatDate(contests[i].dataValues.closing_date)
+
+        const predictions = await Contest_prediction.findAll({
+            where: {
+                contest_id: contests[i].dataValues.id
+            }
+        })
+        let predictionsArr = []
+
+        for (let j = 0; j < predictions.length; j++) {
+            if (!predictions.length) {
+                break
+            }
+            predictionsArr.push(predictions[i].dataValues)
+        }
+        contests[i].dataValues.predictions = predictionsArr
     }
 
     res.json({Contests: contests})

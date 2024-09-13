@@ -16,11 +16,11 @@ module.exports = {
       },
       {
         contest_id: 1,
-        prediction_id: 3
+        prediction_id: 34
       },
       {
         contest_id: 1,
-        prediction_id: 4
+        prediction_id: 66
       }
     ]
 

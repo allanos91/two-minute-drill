@@ -66,8 +66,6 @@ router.post(
         return next(err);
       }
 
-      console.log(user)
-
       const safeUser = {
         id: user.id,
         email: user.email,
