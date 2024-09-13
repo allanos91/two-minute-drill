@@ -281,7 +281,7 @@ router.get('/', async (req, res, next) => {
             if (!predictions.length) {
                 break
             }
-            predictionsArr.push(predictions[i].dataValues)
+            predictionsArr.push(predictions[j].dataValues)
         }
         contests[i].dataValues.predictions = predictionsArr
     }
