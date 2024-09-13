@@ -281,7 +281,15 @@ router.get('/', async (req, res, next) => {
             if (!predictions.length) {
                 break
             }
-            predictionsArr.push(predictions[j].dataValues)
+            let predictionId = predictions[j].dataValues.prediction_id
+
+            const prediction = await Prediction.findOne({
+                where: {
+                    id: predictionId
+                },
+                attributes:['id','type','content']
+            })
+            predictionsArr.push(prediction.dataValues)
         }
         contests[i].dataValues.predictions = predictionsArr
     }
