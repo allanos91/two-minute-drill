@@ -13,6 +13,10 @@ const HostedContests = () => {
     const navigate = useNavigate()
     const [isLoaded, setIsLoaded] = useState(false)
     const [activeTab, setActiveTab] = useState('myContests');
+    const [predictionArr, setPredictionArr] = useState([])
+    const [userArr, setUserArr] = useState([])
+    const [contestVisibleArr, setContestVisibleArr] = useState([])
+    const [submissionVisibleArr, setSubmissionVisibleArr] = useState([])
 
     useEffect(() => {
         dispatch(getHostedContests())
@@ -20,7 +24,7 @@ const HostedContests = () => {
         if (!isLoaded) {
             setIsLoaded(true)
         }
-    }, [dispatch, isLoaded, activeTab])
+    }, [dispatch, isLoaded, activeTab, contestVisibleArr])
 
     let count = 0
 
@@ -33,6 +37,10 @@ const HostedContests = () => {
             return "contest-display odd"
         }
     }
+
+
+
+
     const handleTabChange = (tab) => {
         setActiveTab(tab);
       };
@@ -41,14 +49,96 @@ const HostedContests = () => {
         return Object.values(state.contests.hosted)
     })
 
+    if (contestVisibleArr) {
+        if (!contestVisibleArr.length && contests.length) {
+            let newArr = []
+            for (let i = 0; i < contests.length; i++) {
+                newArr.push("hidden")
+            }
+            setContestVisibleArr(newArr)
+        }
+    }
+
+    const assignContestClassName = (contestVisibleArr, copyIndex) => {
+        console.log(contestVisibleArr[copyIndex], "contest visible index flag")
+        return `${contestVisibleArr[copyIndex]}`
+    }
+
+    const handleContestVisibleIndex = (copyIndex) => {
+        let arr = []
+
+        for (let i = 0; i < contests.length; i++) {
+            if (i === copyIndex) {
+                arr.push("not-hidden")
+            } else {
+                arr.push("hidden")
+            }
+        }
+        setContestVisibleArr(arr)
+    }
+
     const contestsObj = useSelector((state) => {
         return state.contests.hosted
     })
 
+    const users = useSelector((state) => {
+        return state.users.all
+    })
+
+    let index = 0
+
+
     if (isLoaded) {
-        const onCLick = (id) => {
-            console.log(contestsObj[id].predictions)
-            console.log(contestsObj[id].submissions)
+        const onCLick = (id, copyIndex) => {
+            let submissions = contestsObj[id].submissions
+            let predictions = contestsObj[id].predictions
+            let predictionObj = {}
+            let submissionObj = {}
+            let returnArr = []
+            let uArr = []
+            handleContestVisibleIndex(copyIndex)
+
+            submissions.forEach(submission => {
+                let id = submission.id
+                uArr.push(submission.user_id)
+
+                predictions.forEach(prediction => {
+                    if (!predictionObj[id]) {
+                        predictionObj[id] = [prediction]
+                    } else {
+                        predictionObj[id] = [...predictionObj[id], prediction]
+                    }
+                })
+                submissionObj[id] = submission.content
+            })
+
+            for (let key in predictionObj) {
+                let answers = submissionObj[key].split(', ')
+                let questions = predictionObj[key]
+                let answersArr = []
+                for (let i = 0; i < questions.length; i++) {
+                    if (questions[i].type === 'win or lose') {
+                        let contentArr = questions[i].content.split(" ")
+                        let answerArr = answers[i].split(" ")
+                        let answer = contentArr[0] + " vs " + contentArr[1] + " " + contentArr[2] + " " + contentArr[3] + ".  Your prediction: " + contentArr[0] + ": " + answerArr[0] + " " + contentArr[1] + ": " + answerArr[1]
+                        answersArr.push(answer)
+                    } else if (questions[i].type === 'season record') {
+                        let answerArr = answers[i].split(" ")
+                        let answer = `${questions[i].content} season record.  Your prediction: ${answerArr[0]} wins to ${answerArr[1]} losses`
+                        answersArr.push(answer)
+                    } else if (questions[i].type === 'team points') {
+                        let answer = `${questions[i].content} points.  Your prediction: ${answers[i]} points`
+                        answersArr.push(answer)
+                    } else if (questions[i].type === 'over/under') {
+                        let contentArr = questions[i].content.split(" ")
+                        let answer = `${contentArr[0]} ${contentArr[2]} ${contentArr[3]}.  Your prediction: ${answers[i]} ${contentArr[1]}`
+                        answersArr.push(answer)
+                    }
+                }
+                returnArr.push(answersArr)
+            }
+            setPredictionArr(returnArr)
+            setUserArr(uArr)
         }
         return (
             <div>
@@ -70,9 +160,15 @@ const HostedContests = () => {
       <main>
         {activeTab === 'hostedContests' && <section className="hosted-contests">
             {contests.map(contest => {
+                let userIndex = 0
                 let dateTime = contest.closing_date.split(", ")
+                let copyIndex = index
+                index += 1
+                console.log("index ", index,"copyIndex ", copyIndex)
+
                 return (
-                <div className={assignClassName(count)} key={contest.id} onClick={() => onCLick(contest.id)}>
+                    <>
+                <div className={assignClassName(count)} key={contest.id} onClick={() => onCLick(contest.id, copyIndex)}>
                     <div className='closing-date'>
                     <p className='contest-preview-info'>Last day to submit entry: </p>
                     <p className='cd-color contest-preview-info'>{dateTime[0]} at {dateTime[1]}</p>
@@ -86,6 +182,27 @@ const HostedContests = () => {
                     <p className='price contest-preview-info'>${contest.price}.00</p>
                     </div>
                 </div>
+                <div className={assignContestClassName(contestVisibleArr, copyIndex)}>
+                {predictionArr.map(arr => {
+                    let qCount = 0
+                    userIndex += 1
+                    return (
+                        <div>
+                        <p className="sub-heading-hosted-contests">User {users[userArr[userIndex-1]].username}'s submission</p>
+                        {arr.map(answer => {
+                        qCount += 1
+                        return (
+                            <div className="sub-question-answer-container">
+                            <p className="sub-predictions-question">Question {qCount}: {answer.split('Your prediction')[0]}</p>
+                            <p className="sub-predictions-answer">Your prediction{answer.split("Your prediction")[1]}</p>
+                            </div>
+                        )
+
+                    })}
+                    </div>)
+                })}
+                </div>
+                </>
                 )
             })}
             </section>}

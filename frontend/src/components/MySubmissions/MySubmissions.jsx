@@ -5,7 +5,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import "./MySubmissions.css"
 import { getContests } from "../../store/contests";
 import { getPredictionContests } from "../../store/contests";
-import FormatMySubmissions from "../../../utils/formatMySubmissions";
 
 
 
