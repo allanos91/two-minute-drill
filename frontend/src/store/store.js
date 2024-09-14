@@ -4,12 +4,14 @@ import sessionReducer from './session';
 import contestReducer from './contests';
 import predictionReducer from './predictions';
 import submissionReducer from './submissions';
+import userReducer from './users';
 
 const rootReducer = combineReducers({
 session: sessionReducer,
 contests: contestReducer,
 predictions: predictionReducer,
-submissions: submissionReducer
+submissions: submissionReducer,
+users: userReducer
 });
 
 let enhancer;

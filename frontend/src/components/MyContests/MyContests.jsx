@@ -56,7 +56,6 @@ const MyContests = () => {
                     <p className='contest-preview-info'>Entry fee: </p>
                     <p className='price contest-preview-info'>${contest.price}.00</p>
                     </div>
-                    <p className="image contest-preview-info">preview image: {contest.preview_image}</p>
                 </div>
                 )
 

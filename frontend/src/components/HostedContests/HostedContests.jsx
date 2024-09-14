@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getHostedContests } from "../../store/contests";
+import { getUsers } from "../../store/users"
 import MySubmissions from "../MySubmissions";
 import './HostedContests.css'
 
@@ -15,6 +16,7 @@ const HostedContests = () => {
 
     useEffect(() => {
         dispatch(getHostedContests())
+        dispatch(getUsers())
         if (!isLoaded) {
             setIsLoaded(true)
         }
@@ -39,9 +41,14 @@ const HostedContests = () => {
         return Object.values(state.contests.hosted)
     })
 
+    const contestsObj = useSelector((state) => {
+        return state.contests.hosted
+    })
+
     if (isLoaded) {
         const onCLick = (id) => {
-            navigate(`/contests/${id}`)
+            console.log(contestsObj[id].predictions)
+            console.log(contestsObj[id].submissions)
         }
         return (
             <div>
@@ -78,7 +85,6 @@ const HostedContests = () => {
                     <p className='contest-preview-info'>Entry fee: </p>
                     <p className='price contest-preview-info'>${contest.price}.00</p>
                     </div>
-                    <p className="image contest-preview-info">preview image: {contest.preview_image}</p>
                 </div>
                 )
             })}
