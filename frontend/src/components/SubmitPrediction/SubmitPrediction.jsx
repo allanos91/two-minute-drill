@@ -58,7 +58,7 @@ const SubmitPrediction = () => {
             setErr(returnMessage.message)
             return
         }
-        navigate('/submissions')
+        navigate('/contests/hosted-contests')
 
         return
     }

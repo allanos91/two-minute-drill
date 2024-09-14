@@ -32,7 +32,7 @@ const MySubmissions =() => {
         }
 
 
-    }, [isLoaded, dispatch, visibleArr])
+    }, [isLoaded,dispatch])
 
     const submissions = useSelector((state) => {
         return state.submissions.mySubmissions
@@ -75,6 +75,7 @@ const MySubmissions =() => {
 
 
     if (isLoaded && submissions[0]) {
+        console.log(submissions[0])
         let predictionObj = {}
         let submissionObj = {}
         let returnArr = []
@@ -165,7 +166,7 @@ const MySubmissions =() => {
     }
 
     return (
-        <h1>TEST</h1>
+        <h1 className="filler">Contests you have entered will appear below</h1>
     )
 }
 

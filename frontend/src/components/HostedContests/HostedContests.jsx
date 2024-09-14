@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getHostedContests } from "../../store/contests";
-import MyContests  from "../MyContests"
 import MySubmissions from "../MySubmissions";
 import './HostedContests.css'
 
@@ -89,7 +88,6 @@ const HostedContests = () => {
             </section>}
       </main>
             </div>
-
         )
     }
 
