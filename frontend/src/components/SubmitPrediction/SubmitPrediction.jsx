@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom"
 import { getContestDetails } from "../../store/contests"
 import { useSubmissionContestArray } from "../../context/SubmissionContext"
 import EnableFormatPrediction from "../../../utils/enabledUtils"
+import { addSubmission } from "../../store/submissions"
 
 
 
@@ -35,13 +36,25 @@ const SubmitPrediction = () => {
         let contentArr = []
 
         for (let i = 1; i <= length; i++) {
-            console.log(arr[i])
+            if (arr[i]['team1'] !== undefined) {
+                contentArr.push(`${arr[i]['team1']}` + " " + `${arr[i]['team2']}`)
+            }
+            if (arr[i]['win'] !== undefined) {
+                contentArr.push(`${arr[i]['win']}` + " " + `${arr[i]['lose']}`)
+            }
+            if (arr[i]['points'] !== undefined) {
+                contentArr.push(`${arr[i]['points']}`)
+            }
+            if (arr[i]['over/under'] !== undefined) {
+                contentArr.push(`${arr[i]['over/under']}`)
+            }
         }
-
-
         const payload = {
-            arr
+            content: contentArr.join(', ')
         }
+        dispatch(addSubmission(payload, contestId))
+        navigate('/submissions')
+
         return
     }
 

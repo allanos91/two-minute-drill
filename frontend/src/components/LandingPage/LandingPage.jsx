@@ -20,6 +20,9 @@ const LandingPage = () => {
         <div>
             <Link className='landing-page link' to={'/contests/hosted-contests'}>View your contests</Link>
         </div>
+        <div>
+            <Link className='landing-page link' to={'/submissions'}>View your submissions</Link>
+        </div>
         </section>
     )
 }

@@ -3,11 +3,13 @@ import { thunk } from 'redux-thunk';
 import sessionReducer from './session';
 import contestReducer from './contests';
 import predictionReducer from './predictions';
+import submissionReducer from './submissions';
 
 const rootReducer = combineReducers({
 session: sessionReducer,
 contests: contestReducer,
-predictions: predictionReducer
+predictions: predictionReducer,
+submissions: submissionReducer
 });
 
 let enhancer;

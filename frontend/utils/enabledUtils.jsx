@@ -61,7 +61,7 @@ const EnableFormatPrediction = (props) => {
                 setArr(arr)
             } else if (props.type === "team points") {
                 arr[props.count] = {}
-                arr[props.count]['points'] = teamPoints
+                arr[props.count]['points'] = parseInt(teamPoints)
                 setArr(arr)
             } else if (props.type === "over/under") {
                 arr[props.count] = {}

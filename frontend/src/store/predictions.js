@@ -54,7 +54,6 @@ const predictionReducer = (state = initialState, action) => {
             }
         }
         case ADD_PREDICTION: {
-            console.log(action.data, "flag")
             return {
                 ...state,
                 all: [...state.all, action.data]
