@@ -21,18 +21,8 @@ const MySubmissions =() => {
         if (!isLoaded) {
             setIsLoaded(true)
         }
-        if (visibleArr) {
-            if (!visibleArr.length) {
-                let newArr = []
-                for (let i = 0; i < subsArr.length; i++) {
-                    newArr.push("hidden")
-                }
-                setVisibleArr(newArr)
-            }
-        }
 
-
-    }, [isLoaded,dispatch])
+    }, [isLoaded,dispatch, visibleArr])
 
     const submissions = useSelector((state) => {
         return state.submissions.mySubmissions
@@ -45,6 +35,15 @@ const MySubmissions =() => {
     let index = 0
     let count = 0
 
+    if (visibleArr) {
+        if (!visibleArr.length && subsArr.length) {
+            let newArr = []
+            for (let i = 0; i < subsArr.length; i++) {
+                newArr.push("hidden")
+            }
+            setVisibleArr(newArr)
+        }
+    }
     const assignClassName = () => {
         if (count % 2 === 0) {
             count += 1
