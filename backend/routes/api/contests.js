@@ -235,7 +235,7 @@ router.get('/current', async (req, res, next) => {
         for (let j = 0; j < predictions.length; j++) {
             const prediction = await Prediction.findOne({
                 where: {
-                    id: predictions[i].dataValues.prediction_id
+                    id: predictions[j].dataValues.prediction_id
                 },
                 attributes: {
                     exclude: ['createdAt', 'updatedAt']
