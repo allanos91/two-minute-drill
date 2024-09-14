@@ -8,6 +8,7 @@ const {Submission, Contest, User} = require('../../db/models')
 //creates a submission for a contest
 router.post('/:contestId', requireAuth, async(req, res, next) => {
     const contestId = parseInt(req.params.contestId)
+    const userId = req.user.dataValues.id
 
 
     //finds the contest
@@ -17,13 +18,24 @@ router.post('/:contestId', requireAuth, async(req, res, next) => {
         }
     })
 
+    //checks if user has already made a submission
+    const userSubmission = await Submission.findOne({
+        where: {
+            user_id: userId
+        }
+    })
+
+    if (userSubmission) {
+        throw new Error("Can only make one submission per contest. You can edit your submission in 'My Contests' tab")
+
+    }
+
     //compares price of entry to account
 
     let price = contest.dataValues.price
     let balance = req.user.dataValues.balance
     if (price > balance) {
-        res.json({message: "insufficient funds"})
-        return
+        throw new Error("insufficient funds")
     } else {
         const user = await User.findOne({
             where: {
@@ -34,7 +46,6 @@ router.post('/:contestId', requireAuth, async(req, res, next) => {
             balance: balance - price
         })
     }
-    const userId = req.user.dataValues.id
     const submission = await Submission.create({
         user_id: userId,
         contest_id: contestId,

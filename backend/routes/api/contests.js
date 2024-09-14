@@ -66,7 +66,7 @@ router.delete('/:contestId', requireAuth, async (req, res, next) => {
     let currentDate = new Date()
 
     if (currentDate > contest.closing_date) {
-        const err = new Error('Cannot delete a contest that has already been closed')
+        const err = new Error("Cannot delete a contest past it's closing date")
         err.status = 401
         next(err)
         return
