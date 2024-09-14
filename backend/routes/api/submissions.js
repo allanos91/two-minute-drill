@@ -21,7 +21,8 @@ router.post('/:contestId', requireAuth, async(req, res, next) => {
     //checks if user has already made a submission
     const userSubmission = await Submission.findOne({
         where: {
-            user_id: userId
+            user_id: userId,
+            contest_id: contestId
         }
     })
 

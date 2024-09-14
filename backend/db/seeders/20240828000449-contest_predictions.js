@@ -21,6 +21,30 @@ module.exports = {
       {
         contest_id: 1,
         prediction_id: 66
+      },
+      {
+        contest_id:2,
+        prediction_id: 5
+      },
+      {
+        contest_id:2,
+        prediction_id: 8
+      },
+      {
+        contest_id:2,
+        prediction_id: 64
+      },
+      {
+        contest_id:3,
+        prediction_id: 6
+      },
+      {
+        contest_id:3,
+        prediction_id: 9
+      },
+      {
+        contest_id:3,
+        prediction_id: 65
       }
     ]
 
