@@ -192,7 +192,7 @@ router.post('/', requireAuth, async (req, res, next) => {
 
 
 
-//gets contests that belongs to the current user
+//gets contests that the user is hosting.
 router.get('/current', async (req, res, next) => {
 
     const userId = req.user.dataValues.id
@@ -204,10 +204,51 @@ router.get('/current', async (req, res, next) => {
 
     //formats the date
     for (let i = 0; i < contests.length; i ++) {
+
         contests[i].dataValues.createdAt = formatDate(contests[i].dataValues.createdAt)
         contests[i].dataValues.updatedAt = formatDate(contests[i].dataValues.updatedAt)
         contests[i].dataValues.closing_date = formatDate(contests[i].dataValues.closing_date)
+
+        //gets all submissions attached to the contest
+        let subArr = []
+        let predictionArr = []
+        const submissions = await Submission.findAll({
+            where: {
+                contest_id: contests[i].dataValues.id
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt']
+            }
+        })
+        const predictions = await Contest_prediction.findAll({
+            where: {
+                contest_id: contests[i].dataValues.id
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt']
+            }
+        })
+        submissions.forEach(submission => {
+            subArr.push(submission.dataValues)
+        })
+
+        for (let j = 0; j < predictions.length; j++) {
+            const prediction = await Prediction.findOne({
+                where: {
+                    id: predictions[i].dataValues.prediction_id
+                },
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                }
+            })
+            predictionArr.push(prediction)
+        }
+
+        contests[i].dataValues.submissions = subArr
+        contests[i].dataValues.predictions = predictionArr
     }
+
+
 
     res.json({Contests: contests})
 })
