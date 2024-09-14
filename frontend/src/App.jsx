@@ -57,10 +57,6 @@ const router = createBrowserRouter([
         path: '/submissions/:contestId',
         element: <SubmitPrediction/>
       },
-      {
-        path: '/submissions',
-        element: <MySubmissions/>
-      }
     ]
   }
 ]);

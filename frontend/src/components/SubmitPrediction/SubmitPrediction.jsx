@@ -15,6 +15,7 @@ const SubmitPrediction = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [values, setValues] = useState("")
     const {arr, setArr} = useSubmissionContestArray()
+    const [err, setErr] = useState('')
 
     useEffect(() => {
         dispatch(getContestDetails(contestId))
@@ -52,7 +53,11 @@ const SubmitPrediction = () => {
         const payload = {
             content: contentArr.join(', ')
         }
-        dispatch(addSubmission(payload, contestId))
+        const returnMessage = await dispatch(addSubmission(payload, contestId))
+        if (returnMessage.message) {
+            setErr(returnMessage.message)
+            return
+        }
         navigate('/submissions')
 
         return
@@ -78,6 +83,7 @@ const SubmitPrediction = () => {
                 })}
                 <button className="submit-button">Submit</button>
                 </form>
+                <p className="error">{err}</p>
             </div>
 
         )

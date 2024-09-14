@@ -28,6 +28,8 @@ export const getMySubmissions = () => async dispatch => {
 }
 
 export const addSubmission = (payload, id) => async dispatch => {
+
+    try {
     const response = await csrfFetch(`/api/submissions/${id}`, {
         method: 'POST',
         headers: {
@@ -35,9 +37,14 @@ export const addSubmission = (payload, id) => async dispatch => {
         },
         body: JSON.stringify(payload)
     })
-    const data = await response.json()
-    dispatch(add(data, CREATE_SUBMISSION))
-    return data
+
+        const data = await response.json()
+        dispatch(add(data, CREATE_SUBMISSION))
+        return data
+    } catch (error) {
+        let returnErr = await error.json()
+        return returnErr
+    }
 }
 
 const submissionReducer = (state = initialState, action) => {

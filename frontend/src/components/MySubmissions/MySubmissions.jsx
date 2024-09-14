@@ -14,10 +14,6 @@ const MySubmissions =() => {
     const dispatch = useDispatch()
     const [isLoaded, setIsLoaded] = useState(false)
     const [visibleArr, setVisibleArr] = useState([])
-
-
-
-
     useEffect(() => {
         dispatch(getMySubmissions())
         dispatch(getPredictionContests())
@@ -129,7 +125,6 @@ const MySubmissions =() => {
         }
         return (
             <>
-            <h1>Your Predictions</h1>
             {returnArr.map(arr => {
                 let filteredContests = contests.filter(contest => {
                     return contest.id === subsArr[index].contest_id
