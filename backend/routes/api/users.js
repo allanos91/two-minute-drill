@@ -53,4 +53,21 @@ router.post(
     }
   );
 
+
+//gets all the users
+router.get('/', async (req, res) => {
+  const users = await User.findAll({
+    attributes: {
+      exclude: ['firstName', 'lastName', 'balance']
+    }
+  })
+  let userArr = []
+
+  users.forEach(user => {
+    userArr.push(user.dataValues)
+  })
+
+  res.json({Users: userArr})
+})
+
 module.exports = router;
