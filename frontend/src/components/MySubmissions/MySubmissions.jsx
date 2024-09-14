@@ -113,7 +113,7 @@ const MySubmissions =() => {
                     let answer = `${questions[i].content} season record.  Your prediction: ${answerArr[0]} wins to ${answerArr[1]} losses`
                     answersArr.push(answer)
                 } else if (questions[i].type === 'team points') {
-                    let answer = `${questions[i].content} points.  Your prediction: ${answers[i]}`
+                    let answer = `${questions[i].content} points.  Your prediction: ${answers[i]} points`
                     answersArr.push(answer)
                 } else if (questions[i].type === 'over/under') {
                     let contentArr = questions[i].content.split(" ")
@@ -151,10 +151,15 @@ const MySubmissions =() => {
                     </div>
                     </div>
                     <section className={assignSubClassName(visibleArr, index-1)}>
-                    <p className="sub-predictions">Submission for this contest</p>
+                    <p className="sub-predictions sub-label">Your submission for this contest:</p>
                     {arr.map(answer => {
                         qCount += 1
-                    return <p className="sub-predictions">Question {qCount}: {answer}</p>
+                    return (
+                        <div className="sub-question-answer-container">
+                    <p className="sub-predictions-question">Question {qCount}: {answer.split('Your prediction')[0]}</p>
+                    <p className="sub-predictions-answer">Your prediction{answer.split("Your prediction")[1]}</p>
+                    </div>
+                    )
                 })}
                 </section>
                 </>)

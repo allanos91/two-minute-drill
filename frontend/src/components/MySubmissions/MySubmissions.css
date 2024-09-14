@@ -8,11 +8,46 @@
 
 .sub-predictions {
     margin: 10px 0;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.5;
     font-family: 'Courier New', Courier, monospace;
+    color: darkcyan
 }
 
 .filler {
     font-family: 'Courier New', Courier, monospace;
+}
+
+.sub-label {
+    font-size: 32px;
+    color: darkblue
+}
+
+.sub-question-answer-container {
+    max-width: 900px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    min-width: 600px;
+    background-color: #f9f9f9;
+}
+
+.sub-predictions-question {
+    margin:0px;
+    font-size: 20px;
+    line-height: 1.5;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #E3F2FD;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+.sub-predictions-answer {
+    margin: 0px;
+    font-size: 20px;
+    line-height: 1.5;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #e0e0e0;
+    width: fit-content;
 }

@@ -47,6 +47,9 @@ function ProfileButton({ user }) {
 
   const sessionUser = useSelector(state => state.session.user)
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const handleBalanceVal = () => {
+    return sessionUser ? "balance " : "balance hidden"
+  }
 
 
   if (isLoaded) {
@@ -55,7 +58,7 @@ function ProfileButton({ user }) {
         <button onClick={toggleMenu}>
           <FaUserCircle className='circle-profile-button'/>
         </button>
-        <p className='balance'>Available balance: ${sessionUser ? sessionUser.balance : ""}</p>
+        <p className={handleBalanceVal()}>Available balance: ${sessionUser ? sessionUser.balance : ""}</p>
         <ul className={ulClassName} ref={ulRef}>
           {user ? (
             <>
