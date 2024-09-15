@@ -60,12 +60,16 @@ const HostedContests = () => {
     }
 
     const assignContestClassName = (contestVisibleArr, copyIndex) => {
-        console.log(contestVisibleArr[copyIndex], "contest visible index flag")
         return `${contestVisibleArr[copyIndex]}`
     }
 
     const handleContestVisibleIndex = (copyIndex) => {
         let arr = []
+        if (contestVisibleArr[copyIndex] === "not-hidden") {
+            contestVisibleArr[copyIndex] = "hidden"
+            setContestVisibleArr(contestVisibleArr)
+            return
+        }
 
         for (let i = 0; i < contests.length; i++) {
             if (i === copyIndex) {
@@ -77,6 +81,22 @@ const HostedContests = () => {
         setContestVisibleArr(arr)
     }
 
+    const handleSubmissionVisibleIndex = (copySubIndex, submissionsArr) => {
+        let arr = []
+        for (let i = 0; i < submissionsArr.length; i++) {
+            if (i === copySubIndex) {
+                arr.push("not-hidden")
+            } else {
+                arr.push("hidden")
+            }
+        }
+        setSubmissionVisibleArr(arr)
+    }
+
+    const assignSubClassName = (copySubIndex, submissionVisibleArr) => {
+        return `${submissionVisibleArr[copySubIndex]}`
+    }
+
     const contestsObj = useSelector((state) => {
         return state.contests.hosted
     })
@@ -86,6 +106,7 @@ const HostedContests = () => {
     })
 
     let index = 0
+    let subIndex = 0
 
 
     if (isLoaded) {
@@ -97,6 +118,11 @@ const HostedContests = () => {
             let returnArr = []
             let uArr = []
             handleContestVisibleIndex(copyIndex)
+            let arr = []
+            for (let i = 0; i < submissions.length; i++) {
+                arr.push("hidden")
+            }
+            setSubmissionVisibleArr(arr)
 
             submissions.forEach(submission => {
                 let id = submission.id
@@ -164,7 +190,6 @@ const HostedContests = () => {
                 let dateTime = contest.closing_date.split(", ")
                 let copyIndex = index
                 index += 1
-                console.log("index ", index,"copyIndex ", copyIndex)
 
                 return (
                     <>
@@ -181,18 +206,27 @@ const HostedContests = () => {
                     <p className='contest-preview-info'>Entry fee: </p>
                     <p className='price contest-preview-info'>${contest.price}.00</p>
                     </div>
+                    <div className="edit-delete-container">
+                    <div className="edit-delete-div">
+                        <button id="edit">edit</button>
+                        <button id="delete">delete</button>
+                    </div>
                 </div>
+                </div>
+
                 <div className={assignContestClassName(contestVisibleArr, copyIndex)}>
                 {predictionArr.map(arr => {
                     let qCount = 0
+                    let copySubIndex = subIndex
                     userIndex += 1
+                    subIndex += 1
                     return (
                         <div>
-                        <p className="sub-heading-hosted-contests">User {users[userArr[userIndex-1]].username}'s submission</p>
+                        <p className="sub-heading-hosted-contests" onClick={()=>handleSubmissionVisibleIndex(copySubIndex, predictionArr)}>User {users[userArr[userIndex-1]].username}'s submission</p>
                         {arr.map(answer => {
                         qCount += 1
                         return (
-                            <div className="sub-question-answer-container">
+                            <div className={`sub-question-answer-container ${assignSubClassName(copySubIndex, submissionVisibleArr)}`}>
                             <p className="sub-predictions-question">Question {qCount}: {answer.split('Your prediction')[0]}</p>
                             <p className="sub-predictions-answer">Your prediction{answer.split("Your prediction")[1]}</p>
                             </div>
@@ -201,6 +235,7 @@ const HostedContests = () => {
                     })}
                     </div>)
                 })}
+                <p className="sub-heading-hosted-contests-p">{!predictionArr.length ? "This contest has no submissions yet" : ""}</p>
                 </div>
                 </>
                 )

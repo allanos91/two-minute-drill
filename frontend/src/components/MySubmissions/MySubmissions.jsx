@@ -59,10 +59,16 @@ const MySubmissions =() => {
 
     const handleVisibleIndex = (copyIndex)=> {
         let arr = []
+        console.log(visibleArr[copyIndex])
+        if (visibleArr[copyIndex] === "not-hidden") {
+            visibleArr[copyIndex] = "hidden"
+            setVisibleArr(visibleArr)
+            return
+        }
 
         for (let i = 0; i < subsArr.length; i++) {
             if (i === copyIndex) {
-                arr.push("")
+                arr.push("not-hidden")
             } else {
                 arr.push("hidden")
             }
@@ -73,7 +79,6 @@ const MySubmissions =() => {
 
 
     if (isLoaded && submissions[0]) {
-        console.log(submissions[0])
         let predictionObj = {}
         let submissionObj = {}
         let returnArr = []
