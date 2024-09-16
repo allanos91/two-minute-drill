@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { getContestDetails, getHostedContests } from "../../store/contests";
 import { getUsers } from "../../store/users"
 import MySubmissions from "../MySubmissions";
+import OpenModalButton from "../OpenModalButton";
+import DeleteContestModal from "../DeleteContestModal/DeleteContestModal";
 import './HostedContests.css'
+import { useIsDeletedObj } from "../../context/IsDeleted";
 
 
 
@@ -17,6 +20,7 @@ const HostedContests = () => {
     const [userArr, setUserArr] = useState([])
     const [contestVisibleArr, setContestVisibleArr] = useState([])
     const [submissionVisibleArr, setSubmissionVisibleArr] = useState([])
+    const {isDeleted, setIsDeleted} = useIsDeletedObj()
 
     useEffect(() => {
         dispatch(getHostedContests())
@@ -24,7 +28,14 @@ const HostedContests = () => {
         if (!isLoaded) {
             setIsLoaded(true)
         }
-    }, [dispatch, isLoaded, activeTab, contestVisibleArr])
+
+        if (isDeleted) {
+            console.log("FLAG FLAG FLAG")
+            setIsDeleted(false)
+            setContestVisibleArr([])
+            navigate('/contests/hosted-contests')
+        }
+    }, [dispatch, isLoaded, activeTab, contestVisibleArr, isDeleted])
 
     let count = 0
 
@@ -93,9 +104,7 @@ const HostedContests = () => {
         setSubmissionVisibleArr(arr)
     }
 
-    const handleDelete = () => {
 
-    }
 
     const assignSubClassName = (copySubIndex, submissionVisibleArr) => {
         return `${submissionVisibleArr[copySubIndex]}`
@@ -196,6 +205,7 @@ const HostedContests = () => {
                 let userIndex = 0
                 let dateTime = contest.closing_date.split(", ")
                 let copyIndex = index
+                let id = contest.id
                 index += 1
 
                 return (
@@ -216,7 +226,11 @@ const HostedContests = () => {
                     <div className="edit-delete-container">
                     <div className="edit-delete-div">
                         <button id="edit" onClick={() => handleEdit(contest.id)}>Edit</button>
-                        <button id="delete">Delete</button>
+                        <OpenModalButton
+                            id="delete"
+                            buttonText="Delete"
+                            modalComponent={<DeleteContestModal  contestId={id}/>}
+                        />
                     </div>
                 </div>
                 </div>

@@ -6,6 +6,7 @@ const CREATE_CONTEST = "contests/CREATE_CONTEST"
 const LOAD_HOSTED_CONTESTS = "contests/LOAD_HOSTED_CONTESTS"
 const LOAD_PREDICTIONS_CONTESTS = "contests/LOAD_PREDICTIONS_CONTESTS"
 const UPDATE_CONTEST = "contests/UPDATE_CONTESTS"
+const DELETE_CONTEST = "contests/DELETE_CONTEST"
 
 const load = (data, type, id) => ({
     type,
@@ -16,6 +17,11 @@ const load = (data, type, id) => ({
 const add = (data, type) => ({
     type,
     data
+})
+
+const remove = (id, type = DELETE_CONTEST) => ({
+    id,
+    type
 })
 
 const initialState = {
@@ -88,6 +94,20 @@ export const updateContest = (contestId, payload) => async dispatch => {
     return
 }
 
+export const removeContest = (contestId) => async dispatch => {
+    const response = await csrfFetch(`/api/contests/${contestId}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    if (response.ok) {
+        const res = await response.json()
+        dispatch(remove(contestId))
+        return res
+    }
+}
+
 
 const contestReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -137,6 +157,9 @@ const contestReducer = (state = initialState, action) => {
         }
         case UPDATE_CONTEST: {
             const newContests = {...action.data.contests}
+        }
+        case DELETE_CONTEST: {
+            console.log(state[action.contestId])
         }
         default:
             return state;

@@ -8,7 +8,7 @@ import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
 import { Modal, ModalProvider } from './context/Modal';
 import { SubmissionContestArrayProvider } from './context/SubmissionContext';
-
+import { IsDeletedProvider } from './context/IsDeleted';
 const store = configureStore();
 
 if (import.meta.env.MODE !== "production") {
@@ -31,12 +31,14 @@ if (process.env.NODE_ENV !== 'production') {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ModalProvider>
+      <IsDeletedProvider>
       <Provider store={store}>
         <SubmissionContestArrayProvider>
         <App />
         <Modal />
         </SubmissionContestArrayProvider>
       </Provider>
+      </IsDeletedProvider>
     </ModalProvider>
   </React.StrictMode>
 );

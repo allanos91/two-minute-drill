@@ -58,7 +58,7 @@
     color:white;
 }
 
-#delete {
+.delete-contest.delete {
     background-color: red;
     color: white
 }
