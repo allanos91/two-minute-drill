@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import { getPredictions, addPrediction } from "../../store/predictions"
 import FormatPrediction from "../../../utils/utils"
-import { addContest, getContestDetails } from "../../store/contests"
+import { updateContest, getContestDetails } from "../../store/contests"
 import "./UpdateContest.css"
 
 
@@ -30,6 +30,7 @@ const UpdateContest = () => {
     const [hidden, setIsHidden] = useState(true)
     const [on, setOn] = useState("on")
     const contestId = useParams().contestId
+    const [errMessage, setErrMessage] = useState("")
 
 
 
@@ -43,9 +44,14 @@ const UpdateContest = () => {
             {
                 setPredictionArr(contestPredictions)
                 setDescription(contestDetails.description)
+                let dateArr = contestDetails.closing_date.split(', ')[0].split("/")
+                let newDate = `${dateArr[2]}-${dateArr[0]}-${dateArr[1]}`
+                let timeArr = contestDetails.closing_date.split(', ')[1].split(":")
+                let newTime = `${timeArr[0]}:${timeArr[1]}`
+                setDate(newDate)
+                setTime(newTime)
             }
         }
-
     }
 
     useEffect(() => {
@@ -154,6 +160,13 @@ const UpdateContest = () => {
         setWeek('')
     }
 
+
+
+    const handleRemovePrediction = () => {
+        console.log(predictionArr)
+        predictionArr.pop()
+        setPredictionArr([...predictionArr])
+    }
 
     const handleDisabled = () => {
         if (type === "season record") {
@@ -281,15 +294,18 @@ const UpdateContest = () => {
         }
 
 
-        await dispatch(addContest(payload))
-        navigate('/contests')
+        let err = await dispatch(updateContest(contestId, payload))
+
+        if (err) {
+            setErrMessage(err.message)
+            return
+        }
+        navigate('/contests/hosted-contests')
         return
     }
 
 
-
     if (isLoaded && contestDetails) {
-        console.log(predictionArr, "FLAG2")
         return (
             <>
             <div className="container">
@@ -380,8 +396,8 @@ const UpdateContest = () => {
                 <div className={valErrors()}>{errors.date}</div>
             </div>
             <p>Step 7: Create Contest!</p>
-                    <button onClick={handleCreateContest}>Create Contest</button>
-
+                    <button onClick={handleCreateContest}>Save Changes</button>
+                    <div className="error">{errMessage}</div>
             </div>
             </section>
 
@@ -389,11 +405,9 @@ const UpdateContest = () => {
             {predictionArr.map(prediction => {
                 return <FormatPrediction type={prediction.type} content={prediction.content}/>
             })}
+            <button onClick={handleRemovePrediction}>Remove question</button>
             </section>
-
-
             </div>
-
             </>
         )
     }

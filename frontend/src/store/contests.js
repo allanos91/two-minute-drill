@@ -68,10 +68,23 @@ export const getPredictionContests = () => async dispatch => {
     return data
 }
 
-export const updateContest = (contestId) => async dispatch => {
-    const response = await csrfFetch(`/api/contest/${contestId}`)
-    const data = await response.json()
-    dispatch(load(data, UPDATE_CONTEST))
+export const updateContest = (contestId, payload) => async dispatch => {
+    try {
+        const response = await csrfFetch(`/api/contests/${contestId}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        const data = await response.json()
+        dispatch(load(data, UPDATE_CONTEST))
+
+    } catch (error) {
+        return await error.json()
+    }
+
+
     return
 }
 
