@@ -157,6 +157,7 @@ const contestReducer = (state = initialState, action) => {
         }
         case UPDATE_CONTEST: {
             const newContests = {...action.data.contests}
+            return
         }
         case DELETE_CONTEST: {
             console.log(state[action.contestId])

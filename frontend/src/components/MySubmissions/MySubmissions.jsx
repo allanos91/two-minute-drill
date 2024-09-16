@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { getMySubmissions } from "../../store/submissions"
 import {useNavigate, useParams} from "react-router-dom";
 import "./MySubmissions.css"
-import { getContests } from "../../store/contests";
+import { getContests, getContestDetails } from "../../store/contests";
 import { getPredictionContests } from "../../store/contests";
+
 
 
 
@@ -13,6 +14,7 @@ const MySubmissions =() => {
     const dispatch = useDispatch()
     const [isLoaded, setIsLoaded] = useState(false)
     const [visibleArr, setVisibleArr] = useState([])
+    const navigate = useNavigate()
     useEffect(() => {
         dispatch(getMySubmissions())
         dispatch(getPredictionContests())
@@ -21,7 +23,7 @@ const MySubmissions =() => {
             setIsLoaded(true)
         }
 
-    }, [isLoaded,dispatch, visibleArr])
+    }, [isLoaded, dispatch, visibleArr])
 
     const submissions = useSelector((state) => {
         return state.submissions.mySubmissions
@@ -42,6 +44,12 @@ const MySubmissions =() => {
             }
             setVisibleArr(newArr)
         }
+    }
+
+    const handleEdit = async (submissionId, contestId) => {
+        await dispatch(getContestDetails(contestId)).then(() => {
+            navigate(`/submission/${submissionId}/contest/${contestId}`)
+        })
     }
     const assignClassName = () => {
         if (count % 2 === 0) {
@@ -133,8 +141,11 @@ const MySubmissions =() => {
                 let filteredContests = contests.filter(contest => {
                     return contest.id === subsArr[index].contest_id
                 })
+                let subId = subsArr[index].id
                 let dateTime = filteredContests[0].closing_date.split(", ")
                 let copyIndex = index
+                console.log(subId, "flag1")
+                console.log(filteredContests[0].id, "FLAG2")
                 index += 1
                 let qCount = 0
 
@@ -150,9 +161,13 @@ const MySubmissions =() => {
                             <p className='description contest-preview-info'>{filteredContests[0].description}</p>
                         </div>
                         <div className='price-div'>
-                    <p className='contest-preview-info'>Entry fee: </p>
-                    <p className='price contest-preview-info'>${filteredContests[0].price}.00</p>
-                    </div>
+                            <p className='contest-preview-info'>Entry fee: </p>
+                            <p className='price contest-preview-info'>${filteredContests[0].price}.00</p>
+                        </div>
+                        <div>
+                        <button id="edit" onClick={() => handleEdit(subId, filteredContests[0].id)}>Edit</button>
+                        <button>Delete</button>
+                        </div>
                     </div>
                     <section className={assignSubClassName(visibleArr, index-1)}>
                     <p className="sub-predictions sub-label">Your submission for this contest:</p>
