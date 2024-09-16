@@ -29,8 +29,6 @@ const UpdateSubmission = () => {
         return state.contests.details
     })
 
-    console.log(arr)
-
 
 
     const handleSubmit = async(e) => {

@@ -69,10 +69,8 @@ export const editSubmission = (payload, id) => async dispatch => {
             body: JSON.stringify(payload)
         })
         const data = await response.json()
-        console.log(data)
         dispatch(edit(data, UPDATE_SUBMISSION))
     } catch (error) {
-        console.log(await error.json())
         return
     }
 }

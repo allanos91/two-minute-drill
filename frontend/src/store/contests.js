@@ -93,7 +93,6 @@ export const updateContest = (contestId, payload) => async dispatch => {
         dispatch(load(data, UPDATE_CONTEST))
 
     } catch (error) {
-        console.log(error)
         return await error.json()
     }
 

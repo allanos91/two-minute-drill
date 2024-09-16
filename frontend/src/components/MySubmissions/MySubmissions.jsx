@@ -49,7 +49,6 @@ const MySubmissions =() => {
     }
 
     const handleEdit = async (submissionId, contestId) => {
-        console.log(submissionId)
         await dispatch(getContestDetails(contestId)).then(() => {
             navigate(`/submission/${submissionId}/contest/${contestId}`)
         })
@@ -145,7 +144,6 @@ const MySubmissions =() => {
                     return contest.id === subsArr[index].contest_id
                 })
                 let subId = subsArr[index].id
-                console.log(subId)
                 let dateTime = filteredContests[0].closing_date.split(", ")
                 let copyIndex = index
                 index += 1
