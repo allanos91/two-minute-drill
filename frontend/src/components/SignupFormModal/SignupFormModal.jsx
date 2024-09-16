@@ -1,15 +1,13 @@
 // frontend/src/components/SignupFormPage/SignupFormPage.jsx
 
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useDispatch} from 'react-redux';
 import {useModal} from '../../context/Modal'
 import * as sessionActions from '../../store/session';
 import './SignupFormModal.css'
 
 function SignupFormModal() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
