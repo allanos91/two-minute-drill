@@ -8,21 +8,21 @@ module.exports = {
     await Contest.bulkCreate([
       {
         host_id: 4,
-        description: "Join our online football contest! Predict match scores, win exciting prizes, and show off your football knowledge. Enter now for a chance to be crowned the ultimate football expert!",
+        description: "East vs West Coast",
         closing_date: new Date('December 19, 2024 03:24:00'),
         preview_image: "url",
         price: 10
       },
       {
         host_id: 4,
-        description: "Test your football skills in our thrilling online contest. Correctly predict game outcomes to earn points and claim awesome prizes. Compete with fans worldwide and prove you're a football mastermind!",
+        description: "NFL Weekly Challenge",
         closing_date: new Date('December 18, 2024 03:24:00'),
         preview_image: "url",
         price: 12
       },
       {
         host_id: 4,
-        description: "Score big in our online football contest! Predict match results, climb the leaderboard, and win fantastic rewards. Enter today and showcase your football prowess for a chance to shine!",
+        description: "NFL Regular Season Challenge",
         closing_date: new Date('December 15, 2024 03:24:00'),
         preview_image: "url",
         price: 5

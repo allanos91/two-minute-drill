@@ -85,7 +85,7 @@ router.post('/:contestId', requireAuth, async(req, res, next) => {
     })
 
     if (userSubmission) {
-        throw new Error("Can only make one submission per contest. You can edit your submission in 'My Contests' tab")
+        throw new Error("Can only make one submission per contest. You can edit your submission in 'View your contests' tab")
 
     }
 
