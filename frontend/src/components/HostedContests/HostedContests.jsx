@@ -224,7 +224,7 @@ const HostedContests = () => {
                     <p className='cd-color contest-preview-info'>{dateTime[0]} at {dateTime[1]}</p>
                     </div>
                     <div className='description-div'>
-                        <p className='contest-preview-info'>About: </p>
+                        <p className='contest-preview-info'>Contest Name: </p>
                         <p className='description contest-preview-info'>{contest.description}</p>
                     </div>
                     <div className='price-div'>

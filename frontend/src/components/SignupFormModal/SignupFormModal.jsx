@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import {useModal} from '../../context/Modal'
 import * as sessionActions from '../../store/session';
 import './SignupFormModal.css'
 
@@ -16,8 +17,7 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ function SignupFormModal() {
           lastName,
           password
         })
-      ).catch(async (res) => {
+      ).then(closeModal).catch(async (res) => {
         const data = await res.json();
         if (data?.errors) {
           setErrors(data.errors);

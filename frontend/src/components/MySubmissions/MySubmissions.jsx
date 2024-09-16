@@ -159,7 +159,7 @@ const MySubmissions =() => {
                             <p className='cd-color contest-preview-info'>{dateTime[0]} at {dateTime[1]}</p>
                         </div>
                         <div className="description-div">
-                            <p className="contest-preview-info">About: </p>
+                            <p className="contest-preview-info">Name: </p>
                             <p className='description contest-preview-info'>{filteredContests[0].description}</p>
                         </div>
                         <div className='price-div'>

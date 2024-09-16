@@ -77,8 +77,8 @@ const UpdateContest = () => {
         }
         let valError = {}
 
-        if (!description || description.length < 30) {
-            valError.description = "Description is required and must be 30 characters or more."
+        if (!description || description.length < 4) {
+            valError.description = "Contest name is required and must be 30 characters or more."
         }
 
         if (!predictionArr.length) {
@@ -374,8 +374,8 @@ const UpdateContest = () => {
             <p>Step 6: Repeat steps 1-5 for more questions!</p>
             <p>Step 7: When you are done adding questions, set an entry fee and closing date of the contest.</p>
             <div className="form-group">
-                <label>Description: </label>
-                <textarea id= "textarea"value={description} onChange={(e) => setDescription(e.target.value)}/>
+                <label>Contest name: </label>
+                <input id= "textarea" value={description} onChange={(e) => setDescription(e.target.value)}/>
                 <div className={valErrors()}>{errors.description}</div>
             </div>
             <div className="form-group">
