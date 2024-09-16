@@ -1,14 +1,11 @@
-import {useEffect, useState} from "react"
+import {useState} from "react"
 import './utils.css'
-import { addPrediction } from "../src/store/predictions"
-import { useDispatch } from "react-redux"
+
 
 
 const FormatPrediction = (props) => {
-    const [select1, setSelect1] = useState("win")
-    const [select2, setSelect2] = useState("lose")
-    const [isLoaded, setIsLoaded] = useState(false)
-    const dispatch = useDispatch()
+    const [select1] = useState("win")
+    const [select2] = useState("lose")
 
     if (props.type === "win or lose") {
         let contentArr = props.content.split(" ")

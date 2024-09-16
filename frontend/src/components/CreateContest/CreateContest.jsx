@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import { getPredictions, addPrediction } from "../../store/predictions"
 import FormatPrediction from "../../../utils/utils"
-import { addContest, getContestDetails } from "../../store/contests"
+import { addContest } from "../../store/contests"
 import "./CreateContest.css"
 
 
@@ -17,7 +17,7 @@ const CreateContest = () => {
     const [cTeam, setCTeam] = useState('')
     const [predictionArr, setPredictionArr] = useState([])
     const [week, setWeek] = useState('')
-    const [weekArr, setWeekArr] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])
+    const [weekArr] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])
     const [disabledWeek, setDisabledWeek] = useState(false)
     const [disabledOU, setDisabledOU] = useState(false)
     const [date, setDate] = useState('')
@@ -72,6 +72,7 @@ const CreateContest = () => {
         q.type.includes(type)
     )
 
+    let key = 0
 
 
     const filteredWeeks = filteredQuestions.filter(q => {
@@ -275,7 +276,7 @@ const CreateContest = () => {
                 <option>N/A</option>
                 {weekArr.map(week => {
                     return (
-                        <option>week {week}</option>
+                        <option key={`akj123143xxzzzx,${key}`}>week {week}</option>
                     )
                 })}
             </select>
@@ -289,11 +290,11 @@ const CreateContest = () => {
                     let arr = question.content.split(' ')
                     if (question.type === 'win or lose') {
                         return (
-                            <option>{arr[0]} vs {arr[1]}</option>
+                            <option key={`akjsbx,xxhddyiuytfx,${key}`}>{arr[0]} vs {arr[1]}</option>
                         )
                     } else {
                         return (
-                            <option>{arr[0]}</option>
+                            <option key={`akjassdabx,xxzzzx,${key}`}>{arr[0]}</option>
                         )
                     }
 
@@ -301,14 +302,15 @@ const CreateContest = () => {
                 {filteredQuestions.map(question => {
                     let arr = question.content.split(' ')
                     if (question.type === 'season record') {
+                        key += 1
                         return (
-                            <option>{arr[0]}</option>
+                            <option key={`akjsbx,xxzzzx,${key}`}>{arr[0]}</option>
                         )
                     }
                 })}
             </select>
             </div>
-            <p>Step 4: If you chose over/under, set the line. Then hit 'Add Question'</p>
+            <p>Step 4: If you chose over/under, set the line. Then hit &apos;Add Question&apos;</p>
             <div className="form-group">
             <label>4. Over/Under Line</label>
             <input type="integer" disabled={disabledOU} onChange={(e) => setOUPoints(e.target.value)} value={ouPoints} className="over-under-points"/>
@@ -349,7 +351,8 @@ const CreateContest = () => {
 
             <section className="predictions">
             {predictionArr.map(prediction => {
-                return <FormatPrediction type={prediction.type} content={prediction.content}/>
+                key += 1
+                return <FormatPrediction type={prediction.type} content={prediction.content} key={`abjhxchjsdfk${key}`}/>
             })}
             </section>
 

@@ -4,17 +4,16 @@ import {useNavigate, useParams} from "react-router-dom"
 import { getContestDetails } from "../../store/contests"
 import { useSubmissionContestArray } from "../../context/SubmissionContext"
 import EnableFormatPrediction from "../../../utils/enabledUtils"
-import { addSubmission, editSubmission } from "../../store/submissions"
+import {editSubmission } from "../../store/submissions"
 
 
 
 const UpdateSubmission = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {contestId, submissionId} = useParams()
+    const {contestId} = useParams()
     const [isLoaded, setIsLoaded] = useState(false)
-    const [values, setValues] = useState("")
-    const {arr, setArr} = useSubmissionContestArray()
+    const {arr} = useSubmissionContestArray()
     const [err, setErr] = useState('')
 
 
@@ -79,7 +78,7 @@ const UpdateSubmission = () => {
                 {details.predictions.map(prediction => {
                     count += 1
                     return (
-                        <EnableFormatPrediction type={prediction.type} content={prediction.content} count={count}/>
+                        <EnableFormatPrediction type={prediction.type} content={prediction.content} count={count} key={`alskdfalskd${prediction.id}`}/>
                     )
                 })}
                 <button className="submit-button">Edit</button>

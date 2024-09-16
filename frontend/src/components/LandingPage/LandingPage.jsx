@@ -1,6 +1,6 @@
 import './LandingPage.css'
 import { Link } from 'react-router-dom'
-import { useEffect, useState} from "react"
+import { useEffect} from "react"
 import { useIsDeletedObj } from "../../context/IsDeleted"
 import { useNavigate } from "react-router-dom";
 

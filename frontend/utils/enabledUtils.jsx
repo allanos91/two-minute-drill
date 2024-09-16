@@ -1,7 +1,5 @@
 import {useEffect, useState} from "react"
 import './utils.css'
-import { addPrediction } from "../src/store/predictions"
-import { useDispatch } from "react-redux"
 import { useSubmissionContestArray } from "../src/context/SubmissionContext"
 import "./enabledUtils.css"
 
@@ -14,7 +12,6 @@ const EnableFormatPrediction = (props) => {
     const [overUnder, setOverUnder] = useState("Over")
     const [isLoaded, setIsLoaded] = useState(false)
     const {arr, setArr} = useSubmissionContestArray()
-    const dispatch = useDispatch()
 
 
     const handleOnChangeSelect1 = (e) => {
@@ -70,7 +67,7 @@ const EnableFormatPrediction = (props) => {
             }
             setIsLoaded(true)
         }
-    },[select1, select2, sR1, sR2, teamPoints, overUnder])
+    },[select1, select2, sR1, sR2, teamPoints, overUnder, arr, isLoaded, props.count, props.type, setArr])
 
 
 

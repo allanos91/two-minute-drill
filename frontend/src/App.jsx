@@ -9,7 +9,6 @@ import AllContests from './components/AllContests';
 import ContestDetails from './components/ContestDetails';
 import HostedContests from './components/HostedContests';
 import SubmitPrediction from './components/SubmitPrediction/SubmitPrediction';
-import MySubmissions from './components/MySubmissions';
 import UpdateContest from './components/UpdateContest';
 import UpdateSubmission from './components/UpdateSubmission/UpdateSubmission';
 

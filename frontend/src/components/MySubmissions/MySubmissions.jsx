@@ -1,13 +1,12 @@
 import {useEffect, useState} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getMySubmissions } from "../../store/submissions"
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./MySubmissions.css"
 import { getContests, getContestDetails } from "../../store/contests";
 import { getPredictionContests } from "../../store/contests";
 import OpenModalButton from "../OpenModalButton"
 import DeleteSubmissionModal from "../DeleteSubmissionModal/DeleteSubmissionModal";
-import {useIsDeletedObj} from "../../context/IsDeleted";
 
 
 
@@ -17,7 +16,6 @@ const MySubmissions =() => {
     const dispatch = useDispatch()
     const [isLoaded, setIsLoaded] = useState(false)
     const [visibleArr, setVisibleArr] = useState([])
-    const {isDeleted, setIsDeleted} = useIsDeletedObj()
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(getMySubmissions())
@@ -25,11 +23,6 @@ const MySubmissions =() => {
         dispatch(getContests())
         if (!isLoaded) {
             setIsLoaded(true)
-        }
-
-        if (isDeleted) {
-            setVisibleArr([])
-            navigate('/')
         }
 
     }, [isLoaded, dispatch, visibleArr])
@@ -76,7 +69,7 @@ const MySubmissions =() => {
 
     const handleVisibleIndex = (copyIndex)=> {
         let arr = []
-        console.log(visibleArr[copyIndex])
+
         if (visibleArr[copyIndex] === "not-hidden") {
             visibleArr[copyIndex] = "hidden"
             setVisibleArr(visibleArr)
@@ -185,7 +178,7 @@ const MySubmissions =() => {
                     {arr.map(answer => {
                         qCount += 1
                     return (
-                        <div className="sub-question-answer-container">
+                        <div className="sub-question-answer-container" key={`naxzz${qCount}`}>
                     <p className="sub-predictions-question">Question {qCount}: {answer.split('Your prediction')[0]}</p>
                     <p className="sub-predictions-answer">Your prediction{answer.split("Your prediction")[1]}</p>
                     </div>

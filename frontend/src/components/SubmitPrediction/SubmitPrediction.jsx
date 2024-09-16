@@ -13,8 +13,7 @@ const SubmitPrediction = () => {
     const navigate = useNavigate()
     const {contestId} = useParams()
     const [isLoaded, setIsLoaded] = useState(false)
-    const [values, setValues] = useState("")
-    const {arr, setArr} = useSubmissionContestArray()
+    const {arr} = useSubmissionContestArray()
     const [err, setErr] = useState('')
 
     useEffect(() => {
@@ -78,7 +77,7 @@ const SubmitPrediction = () => {
                 {details.predictions.map(prediction => {
                     count += 1
                     return (
-                        <EnableFormatPrediction type={prediction.type} content={prediction.content} count={count}/>
+                        <EnableFormatPrediction type={prediction.type} content={prediction.content} count={count} key={`bahshjxxx,a${count}`}/>
                     )
                 })}
                 <button className="submit-button">Submit</button>

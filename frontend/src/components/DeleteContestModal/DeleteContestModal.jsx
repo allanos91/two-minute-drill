@@ -9,8 +9,8 @@ const DeleteContestModal = (contestId) => {
     const { setIsDeleted} = useIsDeletedObj()
     const onClick = () => {
         dispatch(removeContest(contestId.contestId))
-        .then(closeModal)
         .then(setIsDeleted(true))
+        .then(closeModal())
     }
 
     const onClickClose = () => {

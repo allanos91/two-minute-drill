@@ -71,7 +71,7 @@ export const editSubmission = (payload, id) => async dispatch => {
         const data = await response.json()
         dispatch(edit(data, UPDATE_SUBMISSION))
     } catch (error) {
-
+        return
     }
 }
 
@@ -84,15 +84,13 @@ export const deleteSubmission = (submissionId) => async dispatch => {
             }
         })
 
-        console.log("Test")
-
         if (response.ok) {
             const res = await response.json()
             dispatch(remove(submissionId, DELETE_SUBMISSION))
             return res
         }
     } catch (error) {
-        console.log(error)
+        return
     }
 }
 
@@ -113,9 +111,10 @@ const submissionReducer = (state = initialState, action) => {
             }
         }
         case UPDATE_SUBMISSION: {
-            const newSubmission = {...action.data}
+            return
         }
         case DELETE_SUBMISSION: {
+            return
         }
         default:
             return state;

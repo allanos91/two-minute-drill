@@ -52,9 +52,8 @@ const ContestDetails = () => {
 
                 {details.predictions.map(prediction => {
                     return (
-                        <FormatPrediction type={prediction.type} content={prediction.content}/>
+                        <FormatPrediction type={prediction.type} content={prediction.content} key={`asdnszksfannasldfn${prediction.id}`}/>
                     )
-
                 })}
             </div>
             <p className={errorClassName()}>Insufficient funds</p>

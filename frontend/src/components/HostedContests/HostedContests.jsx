@@ -21,8 +21,8 @@ const HostedContests = () => {
     const [userArr, setUserArr] = useState([])
     const [contestVisibleArr, setContestVisibleArr] = useState([])
     const [submissionVisibleArr, setSubmissionVisibleArr] = useState([])
-    const {isDeleted, setIsDeleted} = useIsDeletedObj()
-    const { balance, setBalance } = useBalanceProvider()
+    const {isDeleted} = useIsDeletedObj()
+    const { setBalance } = useBalanceProvider()
 
     useEffect(() => {
         dispatch(getHostedContests())
@@ -64,8 +64,6 @@ const HostedContests = () => {
     const uBalance = useSelector((state) => {
         return state.session.user.balance
     })
-
-    console.log(uBalance)
 
     if (contestVisibleArr) {
         if (!contestVisibleArr.length && contests.length) {
@@ -208,7 +206,7 @@ const HostedContests = () => {
 
       <main>
         {activeTab === 'hostedContests' && <section className="hosted-contests">
-            {contests.map(contest => {
+            {contests.length ? contests.map(contest => {
                 let userIndex = 0
                 let dateTime = contest.closing_date.split(", ")
                 let copyIndex = index
@@ -249,14 +247,14 @@ const HostedContests = () => {
                     userIndex += 1
                     subIndex += 1
                     return (
-                        <div>
-                        <p className="sub-heading-hosted-contests" onClick={()=>handleSubmissionVisibleIndex(copySubIndex, predictionArr)}>User {users[userArr[userIndex-1]].username}'s submission</p>
+                        <div key={`lansdjx${qCount}`}>
+                        <p className="sub-heading-hosted-contests" onClick={()=>handleSubmissionVisibleIndex(copySubIndex, predictionArr)}>User {users[userArr[userIndex-1]].username}&apos;s submission</p>
                         {arr.map(answer => {
                         qCount += 1
                         return (
-                            <div className={`sub-question-answer-container ${assignSubClassName(copySubIndex, submissionVisibleArr)}`}>
-                            <p className="sub-predictions-question">Question {qCount}: {answer.split('Your prediction')[0]}</p>
-                            <p className="sub-predictions-answer">Your prediction{answer.split("Your prediction")[1]}</p>
+                            <div className={`sub-question-answer-container ${assignSubClassName(copySubIndex, submissionVisibleArr)}`} key={`nabdjad${qCount}`}>
+                            <p className="sub-predictions-question" key={`nabxjad${qCount}`}>Question {qCount}: {answer.split('Your prediction')[0]} </p>
+                            <p className="sub-predictions-answer" key={`naydjad${qCount}`}>Your prediction{answer.split("Your prediction")[1]}</p>
                             </div>
                         )
 
@@ -267,7 +265,7 @@ const HostedContests = () => {
                 </div>
                 </>
                 )
-            })}
+            }) : <h1 className="filler">Contest you host will appear below</h1>}
             </section>}
         {activeTab === 'myContests' && <section className="my-contests">
             <MySubmissions/>

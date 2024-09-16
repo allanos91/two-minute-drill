@@ -18,7 +18,7 @@ const UpdateContest = () => {
     const [cTeam, setCTeam] = useState('')
     const [predictionArr, setPredictionArr] = useState([])
     const [week, setWeek] = useState('')
-    const [weekArr, setWeekArr] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])
+    const [weekArr] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])
     const [disabledWeek, setDisabledWeek] = useState(false)
     const [disabledOU, setDisabledOU] = useState(false)
     const [date, setDate] = useState('')
@@ -163,7 +163,6 @@ const UpdateContest = () => {
 
 
     const handleRemovePrediction = () => {
-        console.log(predictionArr)
         predictionArr.pop()
         setPredictionArr([...predictionArr])
     }
@@ -329,7 +328,7 @@ const UpdateContest = () => {
                 <option>N/A</option>
                 {weekArr.map(week => {
                     return (
-                        <option>week {week}</option>
+                        <option key={`tpapsnaeid${week}`}>week {week}</option>
                     )
                 })}
             </select>
@@ -343,11 +342,11 @@ const UpdateContest = () => {
                     let arr = question.content.split(' ')
                     if (question.type === 'win or lose') {
                         return (
-                            <option>{arr[0]} vs {arr[1]}</option>
+                            <option key={`bahhsdaad${question.id}`}>{arr[0]} vs {arr[1]}</option>
                         )
                     } else {
                         return (
-                            <option>{arr[0]}</option>
+                            <option key={`bahhcaaad${question.id}`}>{arr[0]}</option>
                         )
                     }
 
@@ -356,13 +355,13 @@ const UpdateContest = () => {
                     let arr = question.content.split(' ')
                     if (question.type === 'season record') {
                         return (
-                            <option>{arr[0]}</option>
+                            <option key={`nasjhcbadf${question.id}`}>{arr[0]}</option>
                         )
                     }
                 })}
             </select>
             </div>
-            <p>Step 4: If you chose over/under, set the line. Then hit 'Add Question'</p>
+            <p>Step 4: If you chose over/under, set the line. Then hit &apos;Add Question&apos;</p>
             <div className="form-group">
             <label>4. Over/Under Line</label>
             <input type="integer" disabled={disabledOU} onChange={(e) => setOUPoints(e.target.value)} value={ouPoints} className="over-under-points"/>
@@ -403,7 +402,7 @@ const UpdateContest = () => {
 
             <section className="predictions">
             {predictionArr.map(prediction => {
-                return <FormatPrediction type={prediction.type} content={prediction.content}/>
+                return <FormatPrediction type={prediction.type} content={prediction.content} key={`nabchshda%${prediction.id}`}/>
             })}
             <button onClick={handleRemovePrediction}>Remove question</button>
             </section>
