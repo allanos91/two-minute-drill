@@ -47,9 +47,18 @@ router.put('/:submissionId', requireAuth, async(req, res, next) => {
         }
     })
 
+    console.log(submission, "flag")
+
+    if (!submission) {
+        let err = new Error("Submission could not be found")
+        throw err
+    }
+
     await submission.update({
-        content: req.body.content
-    })
+            content: req.body.content
+        })
+
+
 
     res.json(submission.dataValues)
 })

@@ -11,7 +11,7 @@ import {editSubmission } from "../../store/submissions"
 const UpdateSubmission = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {contestId} = useParams()
+    const {contestId, submissionId} = useParams()
     const [isLoaded, setIsLoaded] = useState(false)
     const {arr} = useSubmissionContestArray()
     const [err, setErr] = useState('')
@@ -28,6 +28,8 @@ const UpdateSubmission = () => {
     const details = useSelector((state) => {
         return state.contests.details
     })
+
+    console.log(arr)
 
 
 
@@ -54,7 +56,7 @@ const UpdateSubmission = () => {
         const payload = {
             content: contentArr.join(', ')
         }
-        const returnMessage = await dispatch(editSubmission(payload, contestId))
+        const returnMessage = await dispatch(editSubmission(payload, submissionId))
         if (returnMessage) {
             setErr(returnMessage.message)
             return

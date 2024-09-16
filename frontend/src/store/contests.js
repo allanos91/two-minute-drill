@@ -7,6 +7,7 @@ const LOAD_HOSTED_CONTESTS = "contests/LOAD_HOSTED_CONTESTS"
 const LOAD_PREDICTIONS_CONTESTS = "contests/LOAD_PREDICTIONS_CONTESTS"
 const UPDATE_CONTEST = "contests/UPDATE_CONTESTS"
 const DELETE_CONTEST = "contests/DELETE_CONTEST"
+const CLEAR_CONTESTS = "contests/CLEAR_CONTEST"
 
 const load = (data, type, id) => ({
     type,
@@ -22,6 +23,10 @@ const add = (data, type) => ({
 const remove = (id, type = DELETE_CONTEST) => ({
     id,
     type
+})
+
+const clearContests = () => ({
+    type: CLEAR_CONTESTS
 })
 
 const initialState = {
@@ -76,6 +81,7 @@ export const getPredictionContests = () => async dispatch => {
 
 export const updateContest = (contestId, payload) => async dispatch => {
     try {
+        dispatch(clearContests())
         const response = await csrfFetch(`/api/contests/${contestId}`, {
             method: "PUT",
             headers: {
@@ -160,6 +166,15 @@ const contestReducer = (state = initialState, action) => {
         }
         case DELETE_CONTEST: {
             return
+        }
+        case CLEAR_CONTESTS: {
+            const initialState = {
+                all: {},
+                details: {},
+                hosted: {},
+                userSubmissions: {}
+            }
+            return initialState
         }
         default:
             return state;
