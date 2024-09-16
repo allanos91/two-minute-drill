@@ -5,6 +5,7 @@ const LOAD_CONTEST_DETAILS = "contests/LOAD_CONTEST_DETAILS"
 const CREATE_CONTEST = "contests/CREATE_CONTEST"
 const LOAD_HOSTED_CONTESTS = "contests/LOAD_HOSTED_CONTESTS"
 const LOAD_PREDICTIONS_CONTESTS = "contests/LOAD_PREDICTIONS_CONTESTS"
+const UPDATE_CONTEST = "contests/UPDATE_CONTESTS"
 
 const load = (data, type, id) => ({
     type,
@@ -67,6 +68,13 @@ export const getPredictionContests = () => async dispatch => {
     return data
 }
 
+export const updateContest = (contestId) => async dispatch => {
+    const response = await csrfFetch(`/api/contest/${contestId}`)
+    const data = await response.json()
+    dispatch(load(data, UPDATE_CONTEST))
+    return
+}
+
 
 const contestReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -113,6 +121,9 @@ const contestReducer = (state = initialState, action) => {
                 ...state,
                 userSubmissions: {...newContests}
             }
+        }
+        case UPDATE_CONTEST: {
+            const newContests = {...action.data.contests}
         }
         default:
             return state;

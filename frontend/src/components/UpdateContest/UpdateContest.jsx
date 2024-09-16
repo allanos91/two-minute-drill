@@ -4,10 +4,11 @@ import {useDispatch, useSelector} from "react-redux"
 import { getPredictions, addPrediction } from "../../store/predictions"
 import FormatPrediction from "../../../utils/utils"
 import { addContest, getContestDetails } from "../../store/contests"
-import "./CreateContest.css"
+import "./UpdateContest.css"
 
 
-const CreateContest = () => {
+
+const UpdateContest = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [isLoaded, setIsLoaded] = useState(false)
@@ -27,17 +28,46 @@ const CreateContest = () => {
     const [price, setPrice] = useState(0)
     const [errors, setErrors] = useState({})
     const [hidden, setIsHidden] = useState(true)
+    const [on, setOn] = useState("on")
+    const contestId = useParams().contestId
+
+
+
+
+    const contestDetails = useSelector((state) => {
+        return state.contests.details
+    })
+
+    const setValues = () => {
+        if (contestPredictions) {
+            {
+                setPredictionArr(contestPredictions)
+                setDescription(contestDetails.description)
+            }
+        }
+
+    }
 
     useEffect(() => {
         dispatch(getPredictions())
+        dispatch(getContestDetails(contestId))
         if (!isLoaded) {
             setIsLoaded(true)
+            setPredictionArr([])
         }
         handleDisabled()
         handleDisabledOU()
         if (content && type) {
             handlePredictionArr()
             setWeek('')
+        }
+
+        if (!contestPredictions) {
+            dispatch(getPredictions())
+        }
+
+        if (!contestDetails) {
+            dispatch(getContestDetails(contestId))
         }
         let valError = {}
 
@@ -62,6 +92,10 @@ const CreateContest = () => {
         if (valError) {
             setErrors(valError)
         }
+        if (contestDetails && on === "on") {
+            setOn("off")
+            setValues()
+        }
     }, [dispatch, isLoaded, type, content, week, ouPoints, description, predictionArr, date, time])
 
     const questions = useSelector((state) => {
@@ -72,7 +106,9 @@ const CreateContest = () => {
         q.type.includes(type)
     )
 
-
+    const contestPredictions = useSelector((state) => {
+        return state.contests.details.predictions
+    })
 
     const filteredWeeks = filteredQuestions.filter(q => {
         let qweek = q.content.split(' ')
@@ -107,6 +143,7 @@ const CreateContest = () => {
             setCTeam(e.target.value)
         }
     }
+
 
 
     const handlePredictionArr = async () => {
@@ -251,7 +288,8 @@ const CreateContest = () => {
 
 
 
-    if (isLoaded) {
+    if (isLoaded && contestDetails) {
+        console.log(predictionArr, "FLAG2")
         return (
             <>
             <div className="container">
@@ -362,7 +400,7 @@ const CreateContest = () => {
     else {
         return <h1>LOADING</h1>
     }
-
 }
 
-export default CreateContest
+
+export default UpdateContest

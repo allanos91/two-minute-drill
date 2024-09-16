@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getHostedContests } from "../../store/contests";
+import { getContestDetails, getHostedContests } from "../../store/contests";
 import { getUsers } from "../../store/users"
 import MySubmissions from "../MySubmissions";
 import './HostedContests.css'
@@ -93,6 +93,10 @@ const HostedContests = () => {
         setSubmissionVisibleArr(arr)
     }
 
+    const handleDelete = () => {
+
+    }
+
     const assignSubClassName = (copySubIndex, submissionVisibleArr) => {
         return `${submissionVisibleArr[copySubIndex]}`
     }
@@ -107,8 +111,11 @@ const HostedContests = () => {
 
     let index = 0
     let subIndex = 0
-
-
+    const handleEdit = async (id) => {
+        await dispatch(getContestDetails(id)).then(() => {
+            navigate(`/update/${id}`)
+        })
+    }
     if (isLoaded) {
         const onCLick = (id, copyIndex) => {
             let submissions = contestsObj[id].submissions
@@ -208,8 +215,8 @@ const HostedContests = () => {
                     </div>
                     <div className="edit-delete-container">
                     <div className="edit-delete-div">
-                        <button id="edit">edit</button>
-                        <button id="delete">delete</button>
+                        <button id="edit" onClick={() => handleEdit(contest.id)}>Edit</button>
+                        <button id="delete">Delete</button>
                     </div>
                 </div>
                 </div>
