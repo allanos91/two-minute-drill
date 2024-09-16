@@ -5,6 +5,17 @@
     text-align: center;
 }
 
+.landing-page {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space out the items */
+    padding: 10px 20px; /* Add padding around the navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for a subtle 3D effect */
+
+  }
+
+
+
 .link {
     text-decoration: none;
     color: black;
@@ -14,9 +25,149 @@
 }
 
 .link:hover {
-    color: yellow
+    color: yellow;
+    cursor: pointer;
 }
 
 .title {
     font-size: 75px;
 }
+
+.landing-page > div {
+    background-color: #233141;
+    border-radius: 5px;
+}
+
+  /* Link styling */
+  .landing-page.link {
+    text-decoration: none; /* Remove underline */
+    margin: 0 15px; /* Space between links */
+    font-size: 16px; /* Font size for readability */
+    cursor: pointer; /* Indicate that it's clickable */
+    border-radius: 5px;
+    background-color: #1e2a38;
+  }
+
+
+  .landing-page-design {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: url('https://example.com/american-football-hero-image.jpg') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    margin: 0;
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin: 20px 0;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .cta-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Information Section */
+  .info {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+
+  .info-item {
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .info-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .info-item p {
+    font-size: 1rem;
+  }
+
+  /* Featured Contests Section */
+  .featured-contests {
+    padding: 20px;
+  }
+
+  .featured-contests h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .contest-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .contest-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    flex: 1 1 30%;
+  }
+
+  .contest-item h3 {
+    margin-top: 0;
+  }
+
+  .contest-item p {
+    font-size: 1rem;
+  }
+
+  .contest-item .cta-button {
+    margin-top: 10px;
+  }
+
+  /* Footer */
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .footer-links {
+    margin-top: 10px;
+  }
+
+  .footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
