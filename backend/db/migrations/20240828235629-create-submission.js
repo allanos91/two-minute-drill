@@ -22,7 +22,8 @@ module.exports = {
         references: {
           model: "Users",
           key: 'id'
-        }
+        },
+        onDelete: "CASCADE"
       },
       contest_id: {
         type: Sequelize.INTEGER,
@@ -30,7 +31,8 @@ module.exports = {
           model: "Contests",
           key: "id"
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: "CASCADE"
       },
       content: {
         type: Sequelize.STRING,
