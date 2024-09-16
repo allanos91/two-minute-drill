@@ -5,6 +5,26 @@ const {Submission, Contest, User} = require('../../db/models')
 
 
 
+router.put('/:submissionId', requireAuth, async(req, res, next) => {
+    const submissionId = parseInt(req.params.submissionId)
+    //finds the submission
+    const submission = await Submission.findOne({
+        where: {
+            id: submissionId
+        }
+    })
+
+    console.log(req.body.content)
+
+    await submission.update({
+        content: req.body.content
+    })
+
+    console.log(submission)
+
+    res.json(submission.dataValues)
+})
+
 //creates a submission for a contest
 router.post('/:contestId', requireAuth, async(req, res, next) => {
     const contestId = parseInt(req.params.contestId)
