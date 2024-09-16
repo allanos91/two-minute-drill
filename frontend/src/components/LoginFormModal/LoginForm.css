@@ -103,3 +103,8 @@
   .LoginFormModal button:hover {
     background-color: #e6c031; /* Slightly darker yellow for hover */
   }
+
+
+  .demo-user {
+    margin-top: 10px;
+  }

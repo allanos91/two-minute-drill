@@ -62,7 +62,10 @@ const HostedContests = () => {
     })
 
     const uBalance = useSelector((state) => {
-        return state.session.user.balance
+        if (state.session.user) {
+            return state.session.user.balance
+        }
+
     })
 
     if (contestVisibleArr) {
