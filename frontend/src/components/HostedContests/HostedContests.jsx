@@ -32,10 +32,9 @@ const HostedContests = () => {
         }
 
         if (isDeleted) {
-            setIsDeleted(false)
             setBalance(uBalance)
             setContestVisibleArr([])
-            navigate('/contests/hosted-contests')
+            navigate('/')
         }
     }, [dispatch, isLoaded, activeTab, contestVisibleArr, isDeleted])
 

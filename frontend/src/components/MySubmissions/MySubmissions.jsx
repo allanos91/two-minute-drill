@@ -5,6 +5,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import "./MySubmissions.css"
 import { getContests, getContestDetails } from "../../store/contests";
 import { getPredictionContests } from "../../store/contests";
+import OpenModalButton from "../OpenModalButton"
+import DeleteSubmissionModal from "../DeleteSubmissionModal/DeleteSubmissionModal";
+import {useIsDeletedObj} from "../../context/IsDeleted";
 
 
 
@@ -14,6 +17,7 @@ const MySubmissions =() => {
     const dispatch = useDispatch()
     const [isLoaded, setIsLoaded] = useState(false)
     const [visibleArr, setVisibleArr] = useState([])
+    const {isDeleted, setIsDeleted} = useIsDeletedObj()
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(getMySubmissions())
@@ -21,6 +25,11 @@ const MySubmissions =() => {
         dispatch(getContests())
         if (!isLoaded) {
             setIsLoaded(true)
+        }
+
+        if (isDeleted) {
+            setVisibleArr([])
+            navigate('/')
         }
 
     }, [isLoaded, dispatch, visibleArr])
@@ -144,8 +153,6 @@ const MySubmissions =() => {
                 let subId = subsArr[index].id
                 let dateTime = filteredContests[0].closing_date.split(", ")
                 let copyIndex = index
-                console.log(subId, "flag1")
-                console.log(filteredContests[0].id, "FLAG2")
                 index += 1
                 let qCount = 0
 
@@ -166,7 +173,11 @@ const MySubmissions =() => {
                         </div>
                         <div>
                         <button id="edit" onClick={() => handleEdit(subId, filteredContests[0].id)}>Edit</button>
-                        <button>Delete</button>
+                        <OpenModalButton
+                            id="delete"
+                            buttonText="Delete"
+                            modalComponent={<DeleteSubmissionModal  submissionId={subId}/>}
+                        />
                         </div>
                     </div>
                     <section className={assignSubClassName(visibleArr, index-1)}>

@@ -161,6 +161,7 @@ const contestReducer = (state = initialState, action) => {
         }
         case DELETE_CONTEST: {
             console.log(state[action.contestId])
+            return
         }
         default:
             return state;

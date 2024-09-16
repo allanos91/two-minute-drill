@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_SUBMISSIONS = "submissions/LOAD_SUBMISSIONS"
 const CREATE_SUBMISSION = "submission/ADD_SUBMISSION"
 const UPDATE_SUBMISSION = "submission/UPDATE_SUBMISSION"
+const DELETE_SUBMISSION = "submission/DELETE_SUBMISSION"
 
 const load = (data, type, id) => ({
     type,
@@ -17,6 +18,11 @@ const add = (data, type, id) => ({
 })
 
 const edit = (data, type) => ({
+    data,
+    type
+})
+
+const remove = (data, type) => ({
     data,
     type
 })
@@ -69,6 +75,27 @@ export const editSubmission = (payload, id) => async dispatch => {
     }
 }
 
+export const deleteSubmission = (submissionId) => async dispatch => {
+    try {
+        const response = await csrfFetch(`/api/submissions/${submissionId}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        console.log("Test")
+
+        if (response.ok) {
+            const res = await response.json()
+            dispatch(remove(submissionId, DELETE_SUBMISSION))
+            return res
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const submissionReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SUBMISSIONS: {
@@ -87,7 +114,8 @@ const submissionReducer = (state = initialState, action) => {
         }
         case UPDATE_SUBMISSION: {
             const newSubmission = {...action.data}
-            return
+        }
+        case DELETE_SUBMISSION: {
         }
         default:
             return state;

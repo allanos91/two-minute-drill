@@ -1,10 +1,24 @@
 import './LandingPage.css'
 import { Link } from 'react-router-dom'
-
+import { useEffect, useState} from "react"
+import { useIsDeletedObj } from "../../context/IsDeleted"
+import { useNavigate } from "react-router-dom";
 
 
 
 const LandingPage = () => {
+
+    const {isDeleted, setIsDeleted} = useIsDeletedObj()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+
+        if (isDeleted) {
+            setIsDeleted(false)
+            navigate("/contests/hosted-contests")
+        }
+    })
+
 
     return (
         <section className='landing-page'>
