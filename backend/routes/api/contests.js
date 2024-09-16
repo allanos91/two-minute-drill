@@ -88,6 +88,7 @@ router.delete('/:contestId', requireAuth, async (req, res, next) => {
 //updates a contest as long as no submission has been submitted.
 router.put('/:contestId', requireAuth, async (req, res, next) => {
     const contestId = parseInt(req.params.contestId)
+    console.log('flag')
 
     //gets the contest
     const contest = await Contest.findOne({
@@ -115,6 +116,7 @@ router.put('/:contestId', requireAuth, async (req, res, next) => {
     if (submission) {
         let err = new Error("Cannot edit a contest after recieving a submission.")
         err.status = 401
+        throw err
     }
 
     //deletes contest predictions
@@ -124,13 +126,14 @@ router.put('/:contestId', requireAuth, async (req, res, next) => {
         }
     })
 
-    const { description, closing_date, preview_image } = req.body
+    const { description, closing_date, preview_image, price } = req.body
 
     //edits contest
     await contest.update({
         description,
         closing_date,
-        preview_image
+        preview_image,
+        price
     })
 
     let predictions_arr = []
