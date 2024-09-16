@@ -8,11 +8,13 @@ import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './ProfileButton.css'
+import { useBalanceProvider } from '../../context/UserBalance';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false)
+  const { balance } = useBalanceProvider()
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -58,7 +60,7 @@ function ProfileButton({ user }) {
         <button onClick={toggleMenu}>
           <FaUserCircle className='circle-profile-button'/>
         </button>
-        <p className={handleBalanceVal()}>Available balance: ${sessionUser ? sessionUser.balance : ""}</p>
+        <p className={handleBalanceVal()}>Available balance: ${balance ? balance : sessionUser.balance}</p>
         <ul className={ulClassName} ref={ulRef}>
           {user ? (
             <>

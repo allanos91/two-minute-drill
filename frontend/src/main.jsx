@@ -9,6 +9,7 @@ import * as sessionActions from './store/session';
 import { Modal, ModalProvider } from './context/Modal';
 import { SubmissionContestArrayProvider } from './context/SubmissionContext';
 import { IsDeletedProvider } from './context/IsDeleted';
+import { BalanceProvider } from './context/UserBalance';
 const store = configureStore();
 
 if (import.meta.env.MODE !== "production") {
@@ -32,12 +33,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ModalProvider>
       <IsDeletedProvider>
+        <BalanceProvider>
       <Provider store={store}>
         <SubmissionContestArrayProvider>
         <App />
         <Modal />
         </SubmissionContestArrayProvider>
       </Provider>
+      </BalanceProvider>
       </IsDeletedProvider>
     </ModalProvider>
   </React.StrictMode>

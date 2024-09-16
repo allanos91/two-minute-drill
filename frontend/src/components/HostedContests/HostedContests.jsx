@@ -8,6 +8,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteContestModal from "../DeleteContestModal/DeleteContestModal";
 import './HostedContests.css'
 import { useIsDeletedObj } from "../../context/IsDeleted";
+import { useBalanceProvider } from "../../context/UserBalance";
 
 
 
@@ -21,6 +22,7 @@ const HostedContests = () => {
     const [contestVisibleArr, setContestVisibleArr] = useState([])
     const [submissionVisibleArr, setSubmissionVisibleArr] = useState([])
     const {isDeleted, setIsDeleted} = useIsDeletedObj()
+    const { balance, setBalance } = useBalanceProvider()
 
     useEffect(() => {
         dispatch(getHostedContests())
@@ -30,8 +32,8 @@ const HostedContests = () => {
         }
 
         if (isDeleted) {
-            console.log("FLAG FLAG FLAG")
             setIsDeleted(false)
+            setBalance(uBalance)
             setContestVisibleArr([])
             navigate('/contests/hosted-contests')
         }
@@ -59,6 +61,12 @@ const HostedContests = () => {
     const contests = useSelector((state) => {
         return Object.values(state.contests.hosted)
     })
+
+    const uBalance = useSelector((state) => {
+        return state.session.user.balance
+    })
+
+    console.log(uBalance)
 
     if (contestVisibleArr) {
         if (!contestVisibleArr.length && contests.length) {
