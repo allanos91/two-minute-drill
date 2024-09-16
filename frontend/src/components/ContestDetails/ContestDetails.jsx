@@ -11,6 +11,7 @@ const ContestDetails = () => {
     const navigate = useNavigate()
     const [isLoaded, setIsLoaded] = useState(false)
     const [isHidden, setIsHidden] = useState(true)
+    const [err, setErr] = useState("")
     const id = useParams().contestId
 
     useEffect(() => {
@@ -26,10 +27,16 @@ const ContestDetails = () => {
     const user = useSelector(state => state.session.user)
 
     const handleEnterSubmission = () => {
+        if (!user) {
+            setErr("Please Log in or Sign up before entering a submission")
+            return
+        }
         if (details.price > user.balance) {
             setIsHidden(false)
             return
         }
+
+
         navigate(`/submissions/${id}`)
     }
 
@@ -60,6 +67,7 @@ const ContestDetails = () => {
             <div className="button-container">
             <button className="enter-submission" onClick={handleEnterSubmission}>Enter a submission</button>
             </div>
+            <p className="error enter-sub">{err}</p>
 
             </>
         )

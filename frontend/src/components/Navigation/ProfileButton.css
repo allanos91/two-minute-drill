@@ -81,6 +81,7 @@ button {
 .balance {
   font-family: 'Courier New', Courier, monospace;
   color: yellowgreen;
+  width: fit-content;
 }
 
 .hidden {
