@@ -93,6 +93,7 @@ export const updateContest = (contestId, payload) => async dispatch => {
         dispatch(load(data, UPDATE_CONTEST))
 
     } catch (error) {
+        console.log(error)
         return await error.json()
     }
 
@@ -162,7 +163,9 @@ const contestReducer = (state = initialState, action) => {
             }
         }
         case UPDATE_CONTEST: {
-            return
+            return {
+                ...state
+            }
         }
         case DELETE_CONTEST: {
             return
