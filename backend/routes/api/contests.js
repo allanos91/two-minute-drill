@@ -82,7 +82,6 @@ router.delete('/:contestId', requireAuth, async (req, res, next) => {
 
     for (let i = 0; i < submissions.length; i++) {
         let userId = submissions[i].dataValues.user_id
-        console.log(contest.dataValues.price)
         let user = await User.findOne({
             where: {
                 id: userId
@@ -111,7 +110,6 @@ router.delete('/:contestId', requireAuth, async (req, res, next) => {
 //updates a contest as long as no submission has been submitted.
 router.put('/:contestId', requireAuth, async (req, res, next) => {
     const contestId = parseInt(req.params.contestId)
-    console.log('flag')
 
     //gets the contest
     const contest = await Contest.findOne({

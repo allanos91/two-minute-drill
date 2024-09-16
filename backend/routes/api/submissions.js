@@ -51,8 +51,6 @@ router.put('/:submissionId', requireAuth, async(req, res, next) => {
         content: req.body.content
     })
 
-    console.log(submission)
-
     res.json(submission.dataValues)
 })
 
