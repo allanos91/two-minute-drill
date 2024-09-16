@@ -5,6 +5,39 @@ const {Submission, Contest, User} = require('../../db/models')
 
 
 
+router.delete('/:submissionId', requireAuth, async(req, res, next) => {
+    const submissionId = parseInt(req.params.submissionId)
+    const userId = req.user.dataValues.id
+
+    const submission = await Submission.findOne({
+        where: {
+            id: submissionId
+        }
+    })
+
+    //checks if submission exists
+    if (!submission) {
+        let err = new Error("Submission could not be found")
+        throw err
+    }
+
+    //checks if user is the owner
+    if (submission.dataValues.user_id !== userId) {
+        let err = new Error("You do not own this submission")
+        throw err
+    }
+
+    await Submission.destroy({
+        where: {
+            id: submissionId
+        }
+    })
+
+    res.json({
+        message: "Your submission was successfully deleted."
+    })
+})
+
 router.put('/:submissionId', requireAuth, async(req, res, next) => {
     const submissionId = parseInt(req.params.submissionId)
     //finds the submission
@@ -13,8 +46,6 @@ router.put('/:submissionId', requireAuth, async(req, res, next) => {
             id: submissionId
         }
     })
-
-    console.log(req.body.content)
 
     await submission.update({
         content: req.body.content

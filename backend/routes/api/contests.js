@@ -103,7 +103,7 @@ router.delete('/:contestId', requireAuth, async (req, res, next) => {
     })
 
     res.json({
-        message: "Your contest was successfully delete."
+        message: "Your contest was successfully deleted."
     })
 })
 
