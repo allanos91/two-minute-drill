@@ -19,11 +19,13 @@ const DeleteContestModal = (contestId) => {
 
     return (
         <>
+        <div className="confirmation-dialog">
         <h1>Confirm Delete</h1>
         <h2>Are you sure you want to remove this contest?</h2>
         <div className='options'>
             <button onClick={onClick}>Yes</button>
             <button onClick={onClickClose}>No</button>
+        </div>
         </div>
         </>
     )
