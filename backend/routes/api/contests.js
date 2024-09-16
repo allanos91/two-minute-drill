@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../../utils/auth')
-const {Contest, Prediction, Contest_prediction, Submission } = require('../../db/models')
+const {Contest, Prediction, Contest_prediction, Submission, User } = require('../../db/models')
 const { formatDate } = require('../../utils/formatters');
 
 
@@ -70,6 +70,29 @@ router.delete('/:contestId', requireAuth, async (req, res, next) => {
         err.status = 401
         next(err)
         return
+    }
+
+    //gets all submissions for contest
+
+    let submissions = await Submission.findAll({
+        where: {
+            contest_id: contestId
+        }
+    })
+
+    for (let i = 0; i < submissions.length; i++) {
+        let userId = submissions[i].dataValues.user_id
+        console.log(contest.dataValues.price)
+        let user = await User.findOne({
+            where: {
+                id: userId
+            }
+        })
+        let balance = user.dataValues.balance
+        let price = contest.dataValues.price
+        await user.update({
+            balance: balance + price
+        })
     }
 
     //deletes the contest
