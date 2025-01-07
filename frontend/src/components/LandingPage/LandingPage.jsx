@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useEffect} from "react"
 import { useIsDeletedObj } from "../../context/IsDeleted"
 import { useNavigate } from "react-router-dom";
+import { useContextProviderFunc } from '../../context/NavigationContext'
 
 
 
@@ -10,12 +11,17 @@ const LandingPage = () => {
 
     const {isDeleted, setIsDeleted} = useIsDeletedObj()
     const navigate = useNavigate()
+    const {hiddenNav, setHiddenNav} = useContextProviderFunc()
 
     useEffect(() => {
 
         if (isDeleted) {
             setIsDeleted(false)
             navigate("/contests/hosted-contests")
+        }
+
+        if (hiddenNav) {
+          setHiddenNav(false)
         }
     })
 
@@ -69,9 +75,9 @@ const LandingPage = () => {
           <footer className="footer">
             <p>&copy; 2024 Two Minute Drill. All rights reserved.</p>
             <div className="footer-links">
-              <Link to="/about">About Us</Link>
-              <Link to="/contact">Contact</Link>
-              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/aboutus">About Us</Link>
+              <Link to="/aboutus">Contact</Link>
+              <Link to="/aboutus">Privacy Policy</Link>
             </div>
           </footer>
         </div>

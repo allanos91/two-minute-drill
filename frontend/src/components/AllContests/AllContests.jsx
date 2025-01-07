@@ -42,7 +42,7 @@ const AllContests = () => {
         }
     }
 
-    if (isLoaded) {
+    if (isLoaded && sortedContests.length) {
         const onCLick = (id) => {
             navigate(`/contests/${id}`)
         }
@@ -70,7 +70,7 @@ const AllContests = () => {
         )
     } else {
         return (
-            <h1>TEST</h1>
+            <h1>Available contests will show up here.</h1>
         )
     }
 

@@ -10,8 +10,6 @@
     align-items: center;
     justify-content: space-between; /* Space out the items */
     padding: 10px 20px; /* Add padding around the navbar */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for a subtle 3D effect */
-
   }
 
 
@@ -31,11 +29,6 @@
 
 .title {
     font-size: 75px;
-}
-
-.landing-page > div {
-    background-color: #233141;
-    border-radius: 5px;
 }
 
   /* Link styling */
@@ -60,7 +53,7 @@
   /* Hero Section */
   .hero {
     background: url('https://example.com/american-football-hero-image.jpg') no-repeat center center/cover;
-    color: white;
+    color: black;
     text-align: center;
     padding: 60px 20px;
   }
@@ -152,6 +145,7 @@
 
   /* Footer */
   .footer {
+    margin-top: 100px;
     background-color: #333;
     color: white;
     text-align: center;

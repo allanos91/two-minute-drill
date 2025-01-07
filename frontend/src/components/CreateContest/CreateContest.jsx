@@ -27,6 +27,7 @@ const CreateContest = () => {
     const [price, setPrice] = useState(0)
     const [errors, setErrors] = useState({})
     const [hidden, setIsHidden] = useState(true)
+    const [placeholder, setPlaceholder] = useState(['prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot'])
 
     useEffect(() => {
         dispatch(getPredictions())
@@ -354,9 +355,12 @@ const CreateContest = () => {
                 key += 1
                 return <FormatPrediction type={prediction.type} content={prediction.content} key={`abjhxchjsdfk${key}`}/>
             })}
+            {placeholder.map(el => {
+                    return (
+                        <div className="predictions-box"> {el} </div>
+                    )
+                })}
             </section>
-
-
             </div>
 
             </>

@@ -11,6 +11,8 @@
     padding-top: 15px;
     border-radius: 5px;
     background-color: #2a3c52;
+    width: 500px;
+    height: 100px;
 }
 
 .select-input {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useContextProviderFunc } from './context/NavigationContext';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
@@ -11,16 +12,26 @@ import HostedContests from './components/HostedContests';
 import SubmitPrediction from './components/SubmitPrediction/SubmitPrediction';
 import UpdateContest from './components/UpdateContest';
 import UpdateSubmission from './components/UpdateSubmission/UpdateSubmission';
+import AboutUs from './components/AboutUs/AboutUs';
 
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const {hiddenNav} = useContextProviderFunc()
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => {
       setIsLoaded(true)
     });
   }, [dispatch]);
+
+  if (hiddenNav) {
+    return (
+      <>
+      {isLoaded && <Outlet/>}
+      </>
+    )
+  }
 
   return (
     <>
@@ -65,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: '/submission/:submissionId/contest/:contestId',
         element: <UpdateSubmission/>
+      },
+      {
+        path: '/aboutus',
+        element: <AboutUs/>
       }
     ]
   }

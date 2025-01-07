@@ -10,6 +10,7 @@ import { Modal, ModalProvider } from './context/Modal';
 import { SubmissionContestArrayProvider } from './context/SubmissionContext';
 import { IsDeletedProvider } from './context/IsDeleted';
 import { BalanceProvider } from './context/UserBalance';
+import { NavContextProvider } from './context/NavigationContext';
 const store = configureStore();
 
 if (import.meta.env.MODE !== "production") {
@@ -36,8 +37,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <BalanceProvider>
       <Provider store={store}>
         <SubmissionContestArrayProvider>
+          <NavContextProvider>
         <App />
         <Modal />
+        </NavContextProvider>
         </SubmissionContestArrayProvider>
       </Provider>
       </BalanceProvider>
