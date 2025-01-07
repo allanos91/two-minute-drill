@@ -340,6 +340,13 @@ router.get('/', async (req, res, next) => {
                 contest_id: contests[i].dataValues.id
             }
         })
+
+        const submissions = await Submission.findAll({
+            where: {
+                contest_id: contests[i].dataValues.id
+            },
+            attributes: ['id', "user_id", "content"]
+        })
         let predictionsArr = []
 
         for (let j = 0; j < predictions.length; j++) {
@@ -356,7 +363,24 @@ router.get('/', async (req, res, next) => {
             })
             predictionsArr.push(prediction.dataValues)
         }
+
+        let submissionsArr = []
+
+        for (let k = 0; k < submissions.length; k++) {
+            if (!submissions.length) {
+                break
+            }
+            const username = await User.findOne({
+                where: {
+                    id: submissions[k].dataValues['user_id']
+                },
+                attributes: ["username"]
+            })
+            submissions[k].dataValues.username = username.dataValues.username
+            submissionsArr.push(submissions[k].dataValues)
+        }
         contests[i].dataValues.predictions = predictionsArr
+        contests[i].dataValues.submissions = submissionsArr
     }
 
     res.json({Contests: contests})
