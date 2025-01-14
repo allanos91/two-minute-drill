@@ -6,10 +6,6 @@
     margin-bottom: 10px;
 }
 
-.predictions-margin {
-    margin-left: 200px;
-}
-
 .predictions-box {
     border-bottom: 2px solid;  /* Solid green border for filled state */
       background-color: white; /* Light green background for filled state */
@@ -80,7 +76,7 @@
 .over-under {
     display: grid;
     grid-template-rows: 50% 50%;
-    grid-template-columns: 50% 17% 15%;
+    grid-template-columns: 50% 20% 10%;
 }
 
 
