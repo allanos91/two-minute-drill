@@ -27,8 +27,8 @@ const CreateContest = () => {
     const [price, setPrice] = useState(0)
     const [errors, setErrors] = useState({})
     const [hidden, setIsHidden] = useState(true)
-    const [placeholder, setPlaceholder] = useState(['prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot','prediction slot'])
-
+    const [placeholder, setPlaceholder] = useState(['empty slot','empty slot','empty slot','empty slot','empty slot','empty slot','empty slot','empty slot','empty slot','empty slot'])
+    const [isTen, setIsTen] = useState(false)
     useEffect(() => {
         dispatch(getPredictions())
         if (!isLoaded) {
@@ -62,6 +62,9 @@ const CreateContest = () => {
 
         if (valError) {
             setErrors(valError)
+        }
+        if (predictionArr.length === 10 && !isTen) {
+            setIsTen(true)
         }
     }, [dispatch, isLoaded, type, content, week, ouPoints, description, predictionArr, date, time])
 
@@ -113,10 +116,28 @@ const CreateContest = () => {
 
     const handlePredictionArr = async () => {
         setPredictionArr([...predictionArr, {type: type, content: content}])
+        placeholder.shift()
+        setPlaceholder(placeholder)
         setContent('')
         setType('')
         setCTeam('')
         setWeek('')
+    }
+
+    const handleTenPredictions = () => {
+        if (isTen) {
+            return "hidden"
+        } else {
+            return ""
+        }
+    }
+
+    const handleTenNotice = () => {
+        if (isTen) {
+            return "error"
+        } else {
+            return "hidden"
+        }
     }
 
 
@@ -319,8 +340,9 @@ const CreateContest = () => {
             <div className={handleErrorClass()}>{error}</div>
             <p>Step 5: Click Add Question</p>
             <div className="form-group">
-            <button onClick={handleSetContent}>Add question</button>
+            <button onClick={handleSetContent} className={handleTenPredictions()}>Add question</button>
             </div>
+            <div className={handleTenNotice()}>You have reached the 10 question limit</div>
             <p>Step 6: Repeat steps 1-5 for more questions!</p>
             <p>Step 7: When you are done adding questions, set an entry fee and closing date of the contest.</p>
             <div className="form-group">
@@ -350,14 +372,14 @@ const CreateContest = () => {
             </div>
             </section>
 
-            <section className="predictions">
+            <section className="predictions predictions-margin">
             {predictionArr.map(prediction => {
                 key += 1
                 return <FormatPrediction type={prediction.type} content={prediction.content} key={`abjhxchjsdfk${key}`}/>
             })}
             {placeholder.map(el => {
                     return (
-                        <div className="predictions-box"> {el} </div>
+                        <div className="placeholder-box"> {el} </div>
                     )
                 })}
             </section>

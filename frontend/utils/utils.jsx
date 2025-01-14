@@ -37,21 +37,21 @@ const FormatPrediction = (props) => {
     } else if (props.type === "team points") {
         let contentArr = props.content.split(' ')
         return (
-            <div className="predictions-box">
-            <p className="predictions">{contentArr[1].toUpperCase()} {contentArr[2].toUpperCase()}</p>
-            <p className="predictions">{contentArr[0].toUpperCase()} Total Score</p>
-            <label className="predictions">Total score</label>
-            <input type="integer" disabled={true} className="input-field"/>
+            <div className="predictions-box total-score">
+            <p id="week-unique"className="predictions">{contentArr[1].toUpperCase()} {contentArr[2].toUpperCase()}</p>
+            <p id="team-unique"className="predictions">{contentArr[0].toUpperCase()}</p>
+            <label id="score-unique" className="predictions">Total score:</label>
+            <input type="integer" disabled={true} className="input-unique"/>
             </div>
         )
     } else if (props.type === "over/under") {
         let contentArr = props.content.split(' ')
         return (
-            <div className="predictions-box">
-            <p className="predictions">{contentArr[2].toUpperCase()} {contentArr[3].toUpperCase()}</p>
-            <p className="predictions">{contentArr[0].toUpperCase()} Over/Under</p>
-            <label className="predictions">Line: {contentArr[1]} </label>
-            <select disabled={true} className="select-input">
+            <div className="predictions-box over-under">
+            <p id="over-under-week"className="predictions">{contentArr[2].toUpperCase()} {contentArr[3].toUpperCase()}</p>
+            <p id="over-under-text" className="predictions">{contentArr[0].toUpperCase()} Over/Under</p>
+            <label id="over-under-line"className="predictions">Line: {contentArr[1]} </label>
+            <select disabled={true} id="over-under-select" className="select-input">
                 <option>Over</option>
                 <option>Under</option>
             </select>
