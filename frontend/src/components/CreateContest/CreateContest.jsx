@@ -29,6 +29,12 @@ const CreateContest = () => {
     const [hidden, setIsHidden] = useState(true)
     const [placeholder, setPlaceholder] = useState(['empty slot','empty slot','empty slot','empty slot','empty slot','empty slot','empty slot','empty slot','empty slot','empty slot'])
     const [isTen, setIsTen] = useState(false)
+    //create array for each 'Type' of question
+    const [winOrLoseData, setWinOrLoseData] = useState([])
+    const [seasonRecordData, setSeasonRecordData] = useState([])
+    const [teamPointsData, setTeamPointsData] = useState([])
+    const [oUData, setOUData] = useState([])
+
     useEffect(() => {
         dispatch(getPredictions())
         if (!isLoaded) {
@@ -72,26 +78,71 @@ const CreateContest = () => {
         return state.predictions.all
     })
 
-    const filteredQuestions = questions.filter(q =>
-        q.type.includes(type)
-    )
+    const handleReset = () => {
+            setOUData([])
+            setSeasonRecordData([])
+            setTeamPointsData([])
+            setWinOrLoseData([])
+            setWeek('')
+    }
+
+
+
+    // const filteredQuestions = questions.filter(q =>
+    //     q.type.includes(type)
+    // )
+
+
+    //first we will set the type. if type is season record
+
+    const handleSetType = (e) => {
+        handleReset()
+        setType(e.target.value)
+        const tType = e.target.value
+        let filteredQuestions = questions.filter(q =>
+            q.type.includes(tType)
+        )
+        if (tType === 'season record') {
+            setSeasonRecordData(filteredQuestions)
+        } else if (tType === 'win or lose') {
+            setWinOrLoseData(filteredQuestions)
+        } else if (tType === 'team points') {
+            setTeamPointsData(filteredQuestions)
+        } else if (tType === 'over/under') {
+            filteredQuestions = questions.filter(q =>
+                q.type.includes('season record')
+            )
+            setOUData(filteredQuestions)
+        }
+    }
 
     let key = 0
 
+    const handleFilteredWeeks = (e) => {
+        const filteredQuestions = questions.filter(q =>
+            q.type.includes(type)
+        )
+        setWeek(e.target.value)
+        const fWeek = e.target.value
 
-    const filteredWeeks = filteredQuestions.filter(q => {
-        let qweek = q.content.split(' ')
-        return qweek[qweek.length-2] + ' ' + qweek[qweek.length-1] === week
-    })
+        if (type === 'win or lose') {
+            let data = filteredQuestions.filter(q => {
+                let queek = q.content.split(' ')
+                return queek[queek.length-2] + ' ' + queek[queek.length-1] === fWeek
+            })
+            console.log(data)
+            setWinOrLoseData(data)
+        } else if (type === "team points") {
+            let data = filteredQuestions.filter(q => {
+                let queek = q.content.split(' ')
+                return queek[queek.length-2] + ' ' + queek[queek.length-1] === fWeek
+            })
+            setTeamPointsData(data)
 
-    const extractTeamName = (content) => {
-        const parts = content.split(' ');
-        return parts[0]; // Assuming the team name is the first word
-      };
-      const filteredData = filteredWeeks.filter((item, index, self) => {
-        const teamName = extractTeamName(item.content);
-        return index === self.findIndex(t => extractTeamName(t.content) === teamName);
-      });
+        }  else if (type === "over/under") {
+            //might need to add stuff here.
+        }
+    }
 
     const handleSetTeam = (e) => {
         if (type === "win or lose") {
@@ -283,7 +334,7 @@ const CreateContest = () => {
             <p>Step 1: Choose the type of prediction down below</p>
             <div className="form-group">
             <label> 1. Choose a question type: </label>
-            <select onChange={(e) => setType(e.target.value)} value={type}>
+            <select onChange={(e) => handleSetType(e)} value={type}>
                 <option>Types</option>
                 <option>win or lose</option>
                 <option>season record</option>
@@ -294,7 +345,7 @@ const CreateContest = () => {
             <p>Step 2: If you chose any type besides season record, choose the week your prediction takes place.</p>
             <div className="form-group">
             <label>2. Select week if applicable: </label>
-            <select onChange={(e) => setWeek(e.target.value)} disabled={disabledWeek} value={week}>edfkljygjh
+            <select onChange={handleFilteredWeeks} disabled={disabledWeek} value={week}>
                 <option>N/A</option>
                 {weekArr.map(week => {
                     return (
@@ -308,28 +359,28 @@ const CreateContest = () => {
             <label>3. Select team or teams</label>
             <select onChange={handleSetTeam} value={cTeam}>
                 <option>N/A</option>
-                {filteredData.map(question => {
-                    let arr = question.content.split(' ')
-                    if (question.type === 'win or lose') {
-                        return (
-                            <option key={`akjsbx,xxhddyiuytfx,${key}`}>{arr[0]} vs {arr[1]}</option>
-                        )
-                    } else {
-                        return (
-                            <option key={`akjassdabx,xxzzzx,${key}`}>{arr[0]}</option>
-                        )
-                    }
-
-                })}
-                {filteredQuestions.map(question => {
-                    let arr = question.content.split(' ')
-                    if (question.type === 'season record') {
-                        key += 1
-                        return (
-                            <option key={`akjsbx,xxzzzx,${key}`}>{arr[0]}</option>
-                        )
-                    }
-                })}
+                {seasonRecordData.map(question => {
+                    return <option>{question.content}</option>
+                })
+                }
+                {
+                    winOrLoseData.map(question => {
+                        let contentArr = question.content.split(" ")
+                        return <option>{contentArr[0]} vs {contentArr[1]}</option>
+                    })
+                }
+                {
+                    teamPointsData.map(question => {
+                        let contentArr = question.content.split(" ")
+                        return <option>{contentArr[0]}</option>
+                    })
+                }
+                {
+                    oUData.map(question => {
+                        let contentArr = question.content.split(" ")
+                        return <option>{contentArr[0]}</option>
+                    })
+                }
             </select>
             </div>
             <p>Step 4: If you chose over/under, set the line. Then hit &apos;Add Question&apos;</p>

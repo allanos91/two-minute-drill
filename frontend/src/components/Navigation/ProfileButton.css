@@ -27,6 +27,7 @@ button {
     top: 100%; /* Position below the button */
     left: 0;
     width: 200px; /* Width of the dropdown */
+    position:sticky
   }
 
   /* Style each menu item */
