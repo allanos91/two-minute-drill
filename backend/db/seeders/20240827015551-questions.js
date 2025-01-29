@@ -943,10 +943,6 @@ module.exports = {
         content: "Panthers 17.5 week 18"
       },
       {
-        type: "win or lose",
-        content: "Panthers Jets week 18"
-      },
-      {
         type: "over/under",
         content: "Cardinals 17.5 week 1"
       },
