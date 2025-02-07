@@ -1,4 +1,4 @@
-.predictions {
+.predictions{
     color: #333333;
     font-family: Bangers;
     margin: 0px;
@@ -6,12 +6,12 @@
     margin-bottom: 10px;
 }
 
-.predictions-box {
+.predictions-box{
     border-bottom: 2px solid;  /* Solid green border for filled state */
       background-color: white; /* Light green background for filled state */
       color: #333;  /* Dark text for better readability */
       font-style: normal;  /* Normal font style when filled */
-      width: 500px;
+      width: 1000px;
       height: 100px;
       margin-bottom:2px;
 }
