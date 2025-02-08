@@ -111,11 +111,11 @@ const EnableFormatPrediction = (props) => {
     } else if (props.type === "over/under") {
         let contentArr = props.content.split(' ')
         return (
-            <div className="predictions-box-enabled">
-            <p className="predictions-enabled">{contentArr[2].toUpperCase()} {contentArr[3].toUpperCase()}</p>
-            <p className="predictions-enabled">{contentArr[0].toUpperCase()} Over/Under</p>
-            <label className="predictions-enabled">Line: {contentArr[1]} </label>
-            <select className="select-input-enabled" value={overUnder} onChange={handleOnChangeOverUnder}>
+            <div className="predictions-box-enabled over-under">
+            <p id="over-under-week" className="predictions-enabled">{contentArr[2].toUpperCase()} {contentArr[3].toUpperCase()}</p>
+            <p id="over-under-text" className="predictions-enabled">{contentArr[0].toUpperCase()} Over/Under</p>
+            <label id="over-under-line" className="predictions-enabled">Line: {contentArr[1]} </label>
+            <select id="over-under-select" className="select-input-enabled over-under-select" value={overUnder} onChange={handleOnChangeOverUnder}>
                 <option>Over</option>
                 <option>Under</option>
             </select>
