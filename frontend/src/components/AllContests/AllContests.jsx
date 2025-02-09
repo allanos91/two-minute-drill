@@ -30,6 +30,8 @@ const AllContests = () => {
         return new Date(a.closing_date) > new Date(b.closing_date) ? 1 : -1
     })
 
+    console.log(sortedContests)
+
     let count = 0
 
     const assignClassName = () => {
@@ -56,7 +58,7 @@ const AllContests = () => {
                     <p className='cd-color contest-preview-info'>{dateTime[0]} at {dateTime[1]}</p>
                     </div>
                     <div className='description-div'>
-                        <p className='contest-preview-info'>Contest Name: </p>
+                        <p id="contest-description" className='contest-preview-info'>Contest Name: </p>
                         <p className='description contest-preview-info'>{contest.description}</p>
                     </div>
                     <div className='price-div'>

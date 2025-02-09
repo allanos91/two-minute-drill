@@ -1,11 +1,11 @@
 .contest-display.odd{
-    background-color: #2a3c52;
+    background-color: #003366;
     transition: color 0.6s;
 }
 
 
 .contest-display.even{
-    background-color: #1e2a38;
+    background-color: #4CAF50;
     transition: color 0.6s;
 }
 
@@ -18,11 +18,12 @@
     border-color: gray;
     justify-content: space-between;
     cursor: pointer;
-    height: 150px;
+    height: 120px;
+    width: 100%;
 }
 
 .contest-display:hover {
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(100, 100, 100);
     transition: background-color 0.8s;
 }
 
@@ -30,27 +31,29 @@
     margin: 0;
     padding: 10px;
     color: white;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Bangers';
     font-size: 20px;
 }
 
 .closing-date {
     display: flex;
-    width: 400px;
+    width: fit-content;
     height: fit-content;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .cd-color {
-    color:rgb(36, 255, 36)
+    color:rgb(255, 255, 255)
 }
 
 .description {
     padding-top: 50px;
     padding-bottom: 20px;
-    width: 600px;
+    width: fit-content;
     height: fit-content;
+    font-size: 35px;
+    color: darkgrey;
 }
 
 .price {
@@ -67,4 +70,13 @@
 
 .description-div {
     height: fit-content;
+    display: flex;
+}
+
+#contest-description {
+    margin-top: 50px;
+    padding: 0px;
+    height: fit-content;
+    font-size: 35px;
+    color: black;
 }
