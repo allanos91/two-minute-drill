@@ -24,7 +24,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #fff;
-    cursor: not-allowed; /* Indicate that it's disabled */
+    cursor: pointer; /* Indicate that it's disabled */
     font-size: 25px;
 }
 

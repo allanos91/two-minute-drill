@@ -1,15 +1,16 @@
 .contest-header-elements {
-    font-family: 'Courier New', Courier, monospace;
-    margin: 0px;
-    padding-top: 60px;
-    padding-bottom: 30px;
-    font-size: 24px;
-    color: white;
+    margin: 0;
+    padding: 10px;
+    color: black;
+    font-family: 'Bangers';
+    font-size: 20px;
+    background-color: white;
 }
 
 .contest-header {
     background-color: #1e2a38;
     margin: 0px;
+    border: solid;
 }
 
 .contest-block {
