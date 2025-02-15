@@ -30,8 +30,6 @@ const AllContests = () => {
         return new Date(a.closing_date) > new Date(b.closing_date) ? 1 : -1
     })
 
-    console.log(sortedContests)
-
     let count = 0
 
     const assignClassName = () => {

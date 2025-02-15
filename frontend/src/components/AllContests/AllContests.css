@@ -1,11 +1,11 @@
 .contest-display.odd{
-    background-color: #003366;
+    background-color: #ffffff;
     transition: color 0.6s;
 }
 
 
 .contest-display.even{
-    background-color: #4CAF50;
+    background-color: #bbbbbb;
     transition: color 0.6s;
 }
 
@@ -23,14 +23,14 @@
 }
 
 .contest-display:hover {
-    background-color: rgb(100, 100, 100);
+    background-color: rgb(112, 109, 251);
     transition: background-color 0.8s;
 }
 
 .contest-preview-info {
     margin: 0;
     padding: 10px;
-    color: white;
+    color: black;
     font-family: 'Bangers';
     font-size: 20px;
 }
@@ -44,7 +44,7 @@
 }
 
 .cd-color {
-    color:rgb(255, 255, 255)
+    color: black
 }
 
 .description {
@@ -53,7 +53,7 @@
     width: fit-content;
     height: fit-content;
     font-size: 35px;
-    color: darkgrey;
+    color: rgb(0, 0, 0);
 }
 
 .price {
