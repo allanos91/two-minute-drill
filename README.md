@@ -5,8 +5,8 @@
 
 ## Features & Implementation
 
-# Single-Page App
-# React router and components
+### Single-Page App
+### React router and components
 
 Two Minute Drill is a single page app. All "pages" are rendered at a root url "/" by a collection of react components that the user is able to shuffle between. The React router handles the logic associated with component navigation and updates an addendum to the root route. Re-rendering of child components is done throught he React API.
 
