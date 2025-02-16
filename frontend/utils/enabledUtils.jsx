@@ -101,11 +101,11 @@ const EnableFormatPrediction = (props) => {
     } else if (props.type === "team points") {
         let contentArr = props.content.split(' ')
         return (
-            <div className="predictions-box-enabled">
-            <p className="predictions-enabled">{contentArr[1].toUpperCase()} {contentArr[2].toUpperCase()}</p>
-            <p className="predictions-enabled">{contentArr[0].toUpperCase()} Total Score</p>
-            <label className="predictions-enabled">Total score</label>
-            <input type="integer" className="input-field-enabled" value={teamPoints} onChange={handleOnChangeTeamPoints}/>
+            <div className="predictions-box-enabled total-score">
+            <p id="week-unique" className="predictions-enabled">{contentArr[1].toUpperCase()} {contentArr[2].toUpperCase()}</p>
+            <p id="team-unique" className="predictions-enabled">{contentArr[0].toUpperCase()} Total Score</p>
+            <label id="score-unique" className="predictions-enabled">Total score</label>
+            <input type="integer" className="input-field-enabled input-unique" value={teamPoints} onChange={handleOnChangeTeamPoints}/>
             </div>
         )
     } else if (props.type === "over/under") {

@@ -38,8 +38,8 @@ const FormatPrediction = (props) => {
         let contentArr = props.content.split(' ')
         return (
             <div className="predictions-box total-score">
-            <p id="week-unique"className="predictions">{contentArr[1].toUpperCase()} {contentArr[2].toUpperCase()}</p>
-            <p id="team-unique"className="predictions">{contentArr[0].toUpperCase()}</p>
+            <p id="week-unique" className="predictions">{contentArr[1].toUpperCase()} {contentArr[2].toUpperCase()}</p>
+            <p id="team-unique" className="predictions">{contentArr[0].toUpperCase()}</p>
             <label id="score-unique" className="predictions">Total score:</label>
             <input type="integer" disabled={true} className="input-unique"/>
             </div>
