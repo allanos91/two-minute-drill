@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getContestDetails, getHostedContests } from "../../store/contests";
 import { getUsers } from "../../store/users"
 import MySubmissions from "../MySubmissions";
-import OpenModalButton from "../OpenModalButton";
+import OpenModalButtonDelete from "../OpenModalButtonDelete";
 import DeleteContestModal from "../DeleteContestModal/DeleteContestModal";
 import './HostedContests.css'
 import { useIsDeletedObj } from "../../context/IsDeleted";
@@ -47,6 +47,14 @@ const HostedContests = () => {
         } else {
             count += 1
             return "contest-display odd"
+        }
+    }
+
+    const visibleDelete =  (date, currDate) => {
+        if (date > currDate) {
+            return ''
+        } else {
+            return 'hidden'
         }
     }
 
@@ -128,7 +136,8 @@ const HostedContests = () => {
 
     let index = 0
     let subIndex = 0
-    const handleEdit = async (id) => {
+    const handleEdit = async (id, event) => {
+        event.stopPropagation()
         await dispatch(getContestDetails(id)).then(() => {
             navigate(`/update/${id}`)
         })
@@ -214,6 +223,7 @@ const HostedContests = () => {
                 let dateTime = contest.closing_date.split(", ")
                 let copyIndex = index
                 let id = contest.id
+                console.log(visibleDelete(Date.parse(dateTime), Date.now()))
                 index += 1
 
                 return (
@@ -233,9 +243,10 @@ const HostedContests = () => {
                     </div>
                     <div className="edit-delete-container">
                     <div className="edit-delete-div">
-                        <button id="edit" onClick={() => handleEdit(contest.id)}>Edit</button>
-                        <OpenModalButton
+                        <button id="edit" onClick={(e) => handleEdit(contest.id, e)} onMouseEnter={(e) => e.stopPropagation()}>Edit</button>
+                        <OpenModalButtonDelete
                             id="delete"
+                            className={visibleDelete(Date.parse(dateTime), Date.now())}
                             buttonText="Delete"
                             modalComponent={<DeleteContestModal  contestId={id}/>}
                         />
