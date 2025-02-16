@@ -50,13 +50,6 @@ const HostedContests = () => {
         }
     }
 
-    const visibleDelete =  (date, currDate) => {
-        if (date > currDate) {
-            return ''
-        } else {
-            return 'hidden'
-        }
-    }
 
 
 
@@ -223,7 +216,7 @@ const HostedContests = () => {
                 let dateTime = contest.closing_date.split(", ")
                 let copyIndex = index
                 let id = contest.id
-                console.log(visibleDelete(Date.parse(dateTime), Date.now()))
+
                 index += 1
 
                 return (
@@ -246,7 +239,8 @@ const HostedContests = () => {
                         <button id="edit" onClick={(e) => handleEdit(contest.id, e)} onMouseEnter={(e) => e.stopPropagation()}>Edit</button>
                         <OpenModalButtonDelete
                             id="delete"
-                            className={visibleDelete(Date.parse(dateTime), Date.now())}
+                            currDate = {Date.now()}
+                            elDate = {dateTime}
                             buttonText="Delete"
                             modalComponent={<DeleteContestModal  contestId={id}/>}
                         />

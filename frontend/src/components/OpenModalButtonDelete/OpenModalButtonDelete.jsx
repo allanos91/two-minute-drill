@@ -5,10 +5,11 @@ function OpenModalButtonDelete({
   buttonText, // text of the button that opens the modal
   onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
   onModalClose, // optional: callback function that will be called once the modal is closed
-  
+  id,
+  currDate,
+  elDate
 }) {
   const { setModalContent, setOnModalClose } = useModal();
-
   const visibleDelete =  (date, currDate) => {
     if (date > currDate) {
         return ''
@@ -23,7 +24,7 @@ function OpenModalButtonDelete({
     if (typeof onButtonClick === "function") onButtonClick();
   };
 
-  return <button id="delete" className={""} onClick={onClick}>{buttonText}</button>;
+  return <button id={id} className={visibleDelete(Date.parse(elDate), currDate)} onClick={onClick}>{buttonText}</button>;
 }
 
 export default OpenModalButtonDelete;
