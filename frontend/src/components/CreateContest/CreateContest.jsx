@@ -360,25 +360,25 @@ const CreateContest = () => {
             <select onChange={handleSetTeam} value={cTeam}>
                 <option>N/A</option>
                 {seasonRecordData.map(question => {
-                    return <option>{question.content}</option>
+                    return <option key={'alsdn2398na'}>{question.content}</option>
                 })
                 }
                 {
                     winOrLoseData.map(question => {
                         let contentArr = question.content.split(" ")
-                        return <option>{contentArr[0]} vs {contentArr[1]}</option>
+                        return <option key={'2839n112j31'}>{contentArr[0]} vs {contentArr[1]}</option>
                     })
                 }
                 {
                     teamPointsData.map(question => {
                         let contentArr = question.content.split(" ")
-                        return <option>{contentArr[0]}</option>
+                        return <option key={"poaanlioasd912"}>{contentArr[0]}</option>
                     })
                 }
                 {
                     oUData.map(question => {
                         let contentArr = question.content.split(" ")
-                        return <option>{contentArr[0]}</option>
+                        return <option key={"akkj112331b99bna"}>{contentArr[0]}</option>
                     })
                 }
             </select>
@@ -430,7 +430,7 @@ const CreateContest = () => {
             })}
             {placeholder.map(el => {
                     return (
-                        <div className="placeholder-box"> {el} </div>
+                        <div key={'90ahbahdbxgcy44'} className="placeholder-box"> {el} </div>
                     )
                 })}
             </section>
