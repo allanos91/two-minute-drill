@@ -27,6 +27,24 @@ Two Minute Drill lets users create, read, update, and destroy contests and sumbi
 
 Creating a contest
 
-When the user goes to create a contest, they will see a screen that looks like this:
+When a user goes to create a contest, they will see a screen that looks like this:
 
 ![Screenshot (94)](https://github.com/user-attachments/assets/560a11dc-eef9-4f18-aa4a-c7aef46951d0)
+
+Instructions are clearly written for users to add predicitons for their contest, which will look something like this:
+
+![Screenshot (95)](https://github.com/user-attachments/assets/83e34a09-2eba-4841-871d-8758c1fe8e00)
+
+Users are limited to 10 predictions per contest.
+
+Entering a submission
+
+After creating a contest, other users will be able to enter the contest as long as the closing date has not passed. Below is how the list of contests would appear:
+
+![Screenshot (96)](https://github.com/user-attachments/assets/eeb66807-3ec1-46ef-96b1-03d759fd16fb)
+
+Some features mission from this iteration of Two Minute Drill include:
+- User profile modification
+- Graded contest results
+- Functional/non-play-money entry fees
+
